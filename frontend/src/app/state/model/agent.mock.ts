@@ -1,5 +1,5 @@
 import { Agent, Dialog, Behavior, Trigger, ListenTrigger, Action, TalkAction } from './agent';
-import { Experiment } from './experiment';
+import { Experiment } from '../../model/experiment';
 
     const b2: Behavior = new Behavior(2, '고마워');
     const b1: Behavior = new Behavior(1, '내일 날씨는');

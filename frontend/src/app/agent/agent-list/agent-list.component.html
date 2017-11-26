@@ -2,20 +2,18 @@
   <div class="row">
     <nav class="col-sm-4 col-md-3 bg-light sidebar">
       <button type="button" class="btn btn-success" (click)="createAgent()">create</button>
-      <ng-container *ngIf="agentList">
-        <ol class="nav nav-pills flex-column">
-          <ng-container *ngFor="let agent of agentList">
-            <li (click)="selectedAgent = agent" class="list-group-item" [class.active] = "isSelected(agent)">
-              <p>Agent name : {{agent.name}}</p>
-              <p>Agent explanation: {{agent.explanation}}</p>
-              <p>Agent triggers:</p>
-              <ng-container *ngFor="let trigger of agent.triggers">
-                <p>{{trigger}}</p>
-              </ng-container>
-            </li>
-          </ng-container>
-        </ol>
-      </ng-container>
+      <ol class="nav nav-pills flex-column">
+        <ng-container *ngFor="let agent of agentList$ | async">
+          <li (click)="selectedAgent = agent" class="list-group-item" [class.active] = "isSelected(agent)">
+            <p>Agent name : {{agent.name}}</p>
+            <p>Agent explanation: {{agent.explanation}}</p>
+            <p>Agent triggers:</p>
+            <ng-container *ngFor="let trigger of agent.triggers">
+              <p>{{trigger}}</p>
+            </ng-container>
+          </li>
+        </ng-container>
+      </ol>
     </nav>
 
     <ng-container *ngIf="selectedAgent">

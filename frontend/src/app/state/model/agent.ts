@@ -1,4 +1,4 @@
-import { Experiment } from './experiment';
+import { Experiment } from '../../model/experiment';
 export class Agent {
   id: number;
   name: string;

@@ -13,7 +13,11 @@ import { SpeechService } from './service/speech.service';
 
 import { LandingComponent } from './landing/landing.component';
 
-import { AgentModule } from './agent/agent.module';
+// agent
+import { AgentListComponent } from './agent/agent-list/agent-list.component';
+import { AgentDetailComponent } from './agent/agent-detail/agent-detail.component';
+import { AgentEditComponent } from './agent/agent-edit/agent-edit.component';
+import { AgentCreateComponent } from './agent/agent-create/agent-create.component';
 
 // service
 import { AuthenticationService } from './service/authentication.service';
@@ -22,12 +26,27 @@ import { AuthenticationService } from './service/authentication.service';
 import { ClickOutsideDirective } from './directive/click-outside.directive';
 import { StopClickPropagationDirective } from './directive/stop-click-propagation.directive';
 import { StopHoverPropagationDirective } from './directive/stop-hover-propagation.directive';
+
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store/src/store_module';
+import { EffectsModule } from '@ngrx/effects/src/effects_module';
+
+import { AppStateModule } from './state/app-state.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
     LandingComponent,
+
+    // agent
+    AgentCreateComponent,
+    AgentDetailComponent,
+    AgentListComponent,
+    AgentEditComponent,
 
     ClickOutsideDirective,
     StopClickPropagationDirective,
@@ -37,7 +56,11 @@ import { StopHoverPropagationDirective } from './directive/stop-hover-propagatio
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    AgentModule
+    StoreRouterConnectingModule,
+    AppStateModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25 //  Retains last 25 states
+    })
   ],
   providers: [
     SpeechService,
