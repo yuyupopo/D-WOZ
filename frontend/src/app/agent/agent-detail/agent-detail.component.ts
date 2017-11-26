@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Agent, Dialog, Trigger, Action, Behavior } from '../service';
+
 
 @Component({
   selector: 'app-agent-detail',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./agent-detail.component.css']
 })
 export class AgentDetailComponent implements OnInit {
+
+  @Input() agent: Agent;
 
   constructor() { }
 
