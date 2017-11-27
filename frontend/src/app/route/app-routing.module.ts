@@ -5,10 +5,10 @@ import { SignInComponent } from '../sign-in/sign-in.component';
 import { LandingComponent } from '../landing/landing.component';
 
 import { AuthenticationService } from '../service/authentication.service';
-import { AgentListComponent } from '../agent/agent-list/agent-list.component';
-import { AgentCreateComponent } from '../agent/agent-create/agent-create.component';
-import { AgentDetailComponent } from '../agent/agent-detail/agent-detail.component';
-import { AgentEditComponent } from '../agent/agent-edit/agent-edit.component';
+import { AgentListComponent } from '../agent/components/agent-list/agent-list.component';
+import { AgentCreateComponent } from '../agent/components/agent-create/agent-create.component';
+import { AgentDetailComponent } from '../agent/components/agent-detail/agent-detail.component';
+import { AgentEditComponent } from '../agent/components/agent-edit/agent-edit.component';
 
 const routes = [
   { path: '', redirectTo: '/agents', pathMatch: 'full' }, // for easy testing, temporary

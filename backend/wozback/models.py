@@ -3,6 +3,10 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 class Agent(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='agents'
+    )
     name = models.CharField(max_length = 100, help_text = 'agent name is max 100 characters')
     explanation = models.TextField()
     experiments = models.ManyToManyField(
@@ -10,12 +14,18 @@ class Agent(models.Model):
         related_name='agents'
     )
 
-class Dialog(models.Model):
+class Trigger(models.Model):
+    name = models.CharField(max_length = 100, help_text = 'agent name is max 100 characters')
     agent = models.ForeignKey(
         'Agent',
-        related_name='dialogs'
+        related_name='triggers'
     )
-    trigger = models.CharField(max_length = 100, help_text = 'agent name is max 100 characters')
+    dialog = models.OneToOneField(
+        'Dialog',
+        related_name='trigger'
+    )
+
+class Dialog(models.Model):
     action = models.CharField(max_length = 100, help_text = 'agent name is max 100 characters')
 
 class Behavior(models.Model):

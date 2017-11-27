@@ -6,8 +6,12 @@ matrix:
       python: 3.6
       cache:
         pip: true
+      services:
+        - redis-server
       install:
         - pip install django coverage coveralls
+        - pip install -U channels
+        - pip install -U asgi_redis
       before_script:
         - cd backend
         - python3 manage.py migrate

@@ -13,11 +13,6 @@ import { SpeechService } from './service/speech.service';
 
 import { LandingComponent } from './landing/landing.component';
 
-// agent
-import { AgentListComponent } from './agent/agent-list/agent-list.component';
-import { AgentDetailComponent } from './agent/agent-detail/agent-detail.component';
-import { AgentEditComponent } from './agent/agent-edit/agent-edit.component';
-import { AgentCreateComponent } from './agent/agent-create/agent-create.component';
 
 // service
 import { AuthenticationService } from './service/authentication.service';
@@ -33,7 +28,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store/src/store_module';
 import { EffectsModule } from '@ngrx/effects/src/effects_module';
 
-import { AppStateModule } from './state/app-state.module';
+import { AgentStateModule } from './agent/agent-state.module';
 
 @NgModule({
   declarations: [
@@ -41,12 +36,6 @@ import { AppStateModule } from './state/app-state.module';
     SignInComponent,
     SignUpComponent,
     LandingComponent,
-
-    // agent
-    AgentCreateComponent,
-    AgentDetailComponent,
-    AgentListComponent,
-    AgentEditComponent,
 
     ClickOutsideDirective,
     StopClickPropagationDirective,
@@ -57,7 +46,7 @@ import { AppStateModule } from './state/app-state.module';
     FormsModule,
     AppRoutingModule,
     StoreRouterConnectingModule,
-    AppStateModule,
+    AgentStateModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     })

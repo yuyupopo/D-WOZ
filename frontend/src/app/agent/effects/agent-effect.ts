@@ -26,11 +26,19 @@ export class AgentEffects {
   load$: Observable<Action> = this.action$
     .ofType<fromAgent.Load>(fromAgent.LOAD)
     .map(action => action.payload)
-    .switchMap(query => {
+    .mergeMap(query => {
       return Observable.fromPromise(this._agentService.getAgentList())
         .map((agents: AgentModel.Agent[]) => new fromAgent.LoadComplete(agents))
         .catch(err => of(new fromAgent.LoadError(err)));
     });
+
+  // @Effect()
+  // create$: Observable<Action> = this.action$
+  //   .ofType<fromAgent.Create>(fromAgent.CREATE)
+  //   .map(action => action.payload)
+  //   .mergeMap( query => {
+  //     return
+  //   });
 
   constructor(
     private action$: Actions,

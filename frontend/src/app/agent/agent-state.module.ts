@@ -15,6 +15,9 @@ import { AgentEffects } from './effects/agent-effect';
 // service
 
 import { AgentService } from './service/agent.service';
+import { AgentReducer } from './reducers/agent-reducer';
+
+import { AgentModule } from './components/agent.module';
 
 @NgModule({
   imports: [
@@ -25,8 +28,10 @@ import { AgentService } from './service/agent.service';
       AgentEffects
     ]),
     StoreRouterConnectingModule,
+    AgentModule,
   ],
-  declarations: [],
+  declarations: [
+  ],
   exports: [
     StoreModule,
     EffectsModule,
@@ -35,4 +40,4 @@ import { AgentService } from './service/agent.service';
     AgentService
   ]
 })
-export class AppStateModule { }
+export class AgentStateModule { }
