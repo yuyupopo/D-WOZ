@@ -4,7 +4,7 @@ import { Agent, Dialog, Trigger, Action, Behavior } from '../service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { State } from '../../reducers/reducer';
+import * as fromAgent from '../../reducers/reducer';
 import * as AgentAction from '../../actions/agent-action';
 
 @Component({
@@ -19,11 +19,12 @@ export class AgentListComponent implements OnInit {
   selectedAgent: Agent = null;
 
   constructor(
-    private _store: Store<State>) {
-    this.agentList$ = this._store.select('agent').map(agentState => agentState.agentList);
-    this._store.select('agent').subscribe(response => {
+    private _store: Store<fromAgent.State>) {
+    this.agentList$ = this._store.select(fromAgent.getAgentList);
+    this._store.select(fromAgent.getAgentState).subscribe(response => {
       console.log('response', response);
     });
+    console.log('agent-list created');
   }
 
   ngOnInit() {

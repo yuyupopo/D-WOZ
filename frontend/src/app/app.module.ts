@@ -20,19 +20,22 @@ import { StopHoverPropagationDirective } from './directive/stop-hover-propagatio
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store/src/store_module';
-import { EffectsModule } from '@ngrx/effects/src/effects_module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AgentStateModule } from './agent/agent-state.module';
 import { UserStateModule } from './user/user-state.module';
 
-import { reducers } from './reducer';
+import { reducers } from './shared/reducer';
+
+import { RouterEffects } from './shared/route/route-effect';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/signin', pathMatch: 'full' }, // for easy testing, temporary
+    { path: '', redirectTo: 'user/signin', pathMatch: 'full' }, // for easy testing, temporary
     { path: 'landing', component: LandingComponent },
+    { path: 'user', loadChildren: './user/user-state.module.ts#UserStateModule'},
     { path: 'agents', loadChildren: './agent/agent-state.module.ts#AgentStateModule' },
-    { path: '**', redirectTo: '/signin' }
+    { path: '**', redirectTo: 'user/signin' }
 ];
 
 @NgModule({
@@ -50,12 +53,17 @@ const routes: Routes = [
     UserStateModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([
+        RouterEffects
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     }),
-
+    StoreRouterConnectingModule,
   ],
-  providers: [  ],
+  providers: [
+      SpeechService
+    ],
   exports: [
       RouterModule,
       StoreModule

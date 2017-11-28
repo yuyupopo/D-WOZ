@@ -1,0 +1,46 @@
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/skip';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/mergeMap';
+import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
+import { Effect, Actions } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Scheduler } from 'rxjs/Scheduler';
+import { async } from 'rxjs/scheduler/async';
+import { empty } from 'rxjs/observable/empty';
+import { of } from 'rxjs/observable/of';
+import 'rxjs/add/observable/fromPromise';
+
+import * as UserModel from '../models/user';
+import * as fromUser from '../actions/user-action';
+import * as fromRouter from '../../shared/route/route-action';
+import { InjectSetupWrapper } from '@angular/core/testing';
+
+@Injectable()
+export class UserEffects {
+    @Effect()
+    signin$: Observable<Action> = this.action$.ofType<fromUser.SignIn>(fromUser.SIGNIN)
+        .map(action => action.payload).mergeMap(query => {
+            const tempUser: UserModel.User = {
+                id: 1,
+                name: 'swpp',
+                email: 'swpp@snu.ac.kr',
+            };
+            console.log('signin');
+            return Observable.of(new fromUser.SignInSuccess(tempUser));
+    });
+
+    @Effect()
+    signinSuccess$: Observable<Action> = this.action$.ofType<fromUser.SignInSuccess>(fromUser.SIGNIN_SUCCESS)
+        .map(action => action.payload).mergeMap(query =>
+            Observable.of(new fromRouter.GoByUrl('agents'))
+        );
+
+  constructor(
+    private action$: Actions) {}
+}

@@ -1,19 +1,41 @@
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { RouterModule } from '@angular/router';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+
+// Reducers
+import { UserReducer } from './reducers/reducer';
+
+// Effects
+import { UserEffects } from './effects/user-effect';
+
+// Service
+
+
+// Module
+import { UserModule } from './components/user.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild([{path: 'signin', pathMatch: 'full', component: SignInComponent}])
-  ],
-  declarations: [SignInComponent],
-  providers: [
-
-  ],
-  exports: []
-})
-export class UserStateModule {}
+    imports: [
+      CommonModule,
+      HttpModule,
+      StoreModule.forFeature('user', UserReducer),
+      EffectsModule.forFeature([
+        UserEffects
+      ]),
+      StoreRouterConnectingModule,
+      UserModule,
+    ],
+    declarations: [
+    ],
+    exports: [
+      StoreModule,
+      EffectsModule,
+    ],
+    providers: [
+    ]
+  })
+  export class UserStateModule { }

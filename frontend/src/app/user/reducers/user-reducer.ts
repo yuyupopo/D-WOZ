@@ -1,22 +1,29 @@
 import * as fromUser from '../actions/user-action';
+import { User } from '../models/user';
 
-export interface UserInfo {
-  name: string;
-  company: string;
-  postcode: string;
+export interface UserState {
+    user: User;
+    loading: boolean;
+    error: string;
 }
 
-export const  initialState: UserInfo = {
-    name: 'test',
-    company: 'test',
-    postcode: 'test',
+export const initialState: UserState = {
+    user: null,
+    loading: false,
+    error: '',
 };
 
-export function reducer(state = initialState, action: any): UserInfo {
+export function UserReducer(state = initialState, action: any): UserState {
   switch (action.type) {
     case fromUser.GET_USER_INFO:
-      return Object.assign({}, state, action.payload);
+        return Object.assign({}, state, action.payload);
+    case fromUser.SIGNIN:
+        return {...state, loading: true};
+    case fromUser.SIGNIN_SUCCESS:
+        return {...state, loading: false, user: action.payload};
+    case fromUser.SIGNIN_FAIL:
+        return {...state, loading: false, error: action.payload};
     default:
-      return state;
+        return state;
   }
 }

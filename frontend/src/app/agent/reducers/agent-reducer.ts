@@ -33,5 +33,3 @@ export function AgentReducer(state: AgentState = initialState, action: fromAgent
             return state;
     }
 }
-
-export const getAgentList = (state: AgentState) => state.agentList;

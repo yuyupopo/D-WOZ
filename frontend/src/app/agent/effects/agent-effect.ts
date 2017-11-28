@@ -23,10 +23,8 @@ import { AgentService } from '../service/agent.service';
 @Injectable()
 export class AgentEffects {
   @Effect()
-  load$: Observable<Action> = this.action$
-    .ofType<fromAgent.Load>(fromAgent.LOAD)
-    .map(action => action.payload)
-    .mergeMap(query => {
+  load$: Observable<Action> = this.action$.ofType<fromAgent.Load>(fromAgent.LOAD)
+    .map(action => action.payload).mergeMap(query => {
       return Observable.fromPromise(this._agentService.getAgentList())
         .map((agents: AgentModel.Agent[]) => new fromAgent.LoadComplete(agents))
         .catch(err => of(new fromAgent.LoadError(err)));

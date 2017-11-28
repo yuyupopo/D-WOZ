@@ -6,27 +6,28 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
+
 // Reducers
-import { reducers } from './reducers/reducer';
+import { AgentReducer } from './reducers/reducer';
 
 // Effects
 import { AgentEffects } from './effects/agent-effect';
 
-// service
-
+// Service
 import { AgentService } from './service/agent.service';
-import { AgentReducer } from './reducers/agent-reducer';
 
+// Module
 import { AgentModule } from './components/agent.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     HttpModule,
-    // StoreModule.forFeature('agent', reducers),
-    // EffectsModule.forFeature([
-    //   AgentEffects
-    // ]),
+    StoreModule.forFeature('agent', AgentReducer),
+    EffectsModule.forFeature([
+      AgentEffects
+    ]),
     StoreRouterConnectingModule,
     AgentModule,
   ],
