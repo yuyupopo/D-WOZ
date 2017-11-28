@@ -23,10 +23,10 @@ import { AgentModule } from './components/agent.module';
   imports: [
     CommonModule,
     HttpModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([
-      AgentEffects
-    ]),
+    // StoreModule.forFeature('agent', reducers),
+    // EffectsModule.forFeature([
+    //   AgentEffects
+    // ]),
     StoreRouterConnectingModule,
     AgentModule,
   ],
