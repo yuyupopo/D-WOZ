@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 
 // Reducers
@@ -28,7 +27,6 @@ import { AgentModule } from './components/agent.module';
     EffectsModule.forFeature([
       AgentEffects
     ]),
-    StoreRouterConnectingModule,
     AgentModule,
   ],
   declarations: [

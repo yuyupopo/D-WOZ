@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 // Reducers
 import { UserReducer } from './reducers/reducer';
@@ -26,7 +25,6 @@ import { UserModule } from './components/user.module';
       EffectsModule.forFeature([
         UserEffects
       ]),
-      StoreRouterConnectingModule,
       UserModule,
     ],
     declarations: [

@@ -26,6 +26,7 @@
     "@ngrx/router-store": "^4.1.1",
     "@ngrx/store": "^4.1.1",
     "@ngrx/store-devtools": "^4.1.1",
+    "@ngrx/store-log-monitor": "^3.0.2",
     "@types/annyang": "^2.6.1",
     "angular2-websocket-service": "^0.5.3",
     "bootstrap": "^4.0.0-beta.2",

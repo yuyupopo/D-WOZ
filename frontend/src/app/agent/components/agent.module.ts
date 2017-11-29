@@ -17,7 +17,9 @@ export const COMPONENTS = [
 ];
 
 const routes: Routes = [
-    {path: '', component: AgentListComponent}
+    {path: '', component: AgentListComponent},
+    {path: ':id', component: AgentDetailComponent},
+
 ];
 
 @NgModule({
@@ -25,7 +27,6 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    RouterModule,
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,

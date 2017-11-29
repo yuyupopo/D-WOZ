@@ -1,10 +1,20 @@
 import { UserReducer, UserState } from '../user/reducers/user-reducer';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+import {
+    StoreRouterConnectingModule,
+    routerReducer,
+    RouterReducerState,
+    RouterStateSerializer
+  } from '@ngrx/router-store';
+import { Params, RouterStateSnapshot } from '@angular/router';
+
+import { RouterStateUrl } from './route/route-reduce';
+export { CustomSerializer } from './route/route-reduce';
+
 
 export interface State {
   user: UserState;
-  router: RouterReducerState;
+  router: RouterReducerState<RouterStateUrl>;
 }
 
 export const reducers: ActionReducerMap<State> = {

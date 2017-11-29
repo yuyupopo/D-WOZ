@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../shared/reducer';
-import * as fromRoute from '../../shared/route/route-action';
+import * as fromUser from '../../user/actions/user-action';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() { }
 
-    public logout(): void {
-        this._store.dispatch(new fromRoute.GoByUrl('/signin'));
+    public signout(): void {
+        this._store.dispatch(new fromUser.SignOut());
     }
 }

@@ -19,14 +19,14 @@ import { StopClickPropagationDirective } from './directive/stop-click-propagatio
 import { StopHoverPropagationDirective } from './directive/stop-hover-propagation.directive';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AgentStateModule } from './agent/agent-state.module';
 import { UserStateModule } from './user/user-state.module';
 
-import { reducers } from './shared/reducer';
+import { reducers, CustomSerializer } from './shared/reducer';
 
 import { RouterEffects } from './shared/route/route-effect';
 
@@ -34,7 +34,7 @@ import { NavbarComponent } from './shared/components/navbar.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'user/signin', pathMatch: 'full' }, // for easy testing, temporary
-    { path: 'landing', component: LandingComponent },
+    { path: 'landing', pathMatch: 'full', component: LandingComponent },
     { path: 'user', loadChildren: './user/user-state.module.ts#UserStateModule'},
     { path: 'agents', loadChildren: './agent/agent-state.module.ts#AgentStateModule' },
     { path: '**', redirectTo: 'user/signin' }
@@ -53,22 +53,19 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    UserStateModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
         RouterEffects
     ]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25 //  Retains last 25 states
-    }),
+    StoreDevtoolsModule.instrument({ maxAge: 10   }),
     StoreRouterConnectingModule,
   ],
   providers: [
-      SpeechService
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+      SpeechService,
     ],
   exports: [
-      RouterModule,
       StoreModule
   ],
   bootstrap: [AppComponent]

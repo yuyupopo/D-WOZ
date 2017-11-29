@@ -23,6 +23,8 @@ export function UserReducer(state = initialState, action: any): UserState {
         return {...state, loading: false, user: action.payload};
     case fromUser.SIGNIN_FAIL:
         return {...state, loading: false, error: action.payload};
+    case fromUser.SIGNOUT:
+        return {...state, loading: false, user: null};
     default:
         return state;
   }

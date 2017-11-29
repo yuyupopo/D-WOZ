@@ -66,15 +66,12 @@ export class SignUpFail implements Action {
 
 export class SignOut implements Action {
     readonly type = SIGNOUT;
-    constructor(public payload: {
-        username: string,
-        password: string
-    }) {}
+    constructor(public payload ?: void) {}
 }
 
 export class SignOutSuccess implements Action {
     readonly type = SIGNOUT_SUCCESS;
-    constructor(public payload: User) {}
+    constructor(public payload ?: void) {}
 }
 
 export class SignOutFail implements Action {
