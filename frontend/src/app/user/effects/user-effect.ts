@@ -41,6 +41,18 @@ export class UserEffects {
             Observable.of(new fromRouter.GoByUrl('agents'))
         );
 
+    @Effect()
+    redirectSignUp$: Observable<Action> = this.action$.ofType<fromUser.RedirectSignUp>(fromUser.REDIRECT_SIGNUP)
+        .map(action => action.payload).mergeMap(query =>
+            Observable.of(new fromRouter.GoByUrl('signup'))
+        );
+
+    @Effect()
+    signup$: Observable<Action> = this.action$.ofType<fromUser.SignUp>(fromUser.SIGNUP)
+        .map(action => action.payload).mergeMap(query =>
+            Observable.of(new fromRouter.GoByUrl('signin'))
+        );
+
   constructor(
     private action$: Actions) {}
 }

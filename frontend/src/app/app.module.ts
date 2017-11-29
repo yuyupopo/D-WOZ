@@ -30,6 +30,8 @@ import { reducers } from './shared/reducer';
 
 import { RouterEffects } from './shared/route/route-effect';
 
+import { NavbarComponent } from './shared/components/navbar.component';
+
 const routes: Routes = [
     { path: '', redirectTo: 'user/signin', pathMatch: 'full' }, // for easy testing, temporary
     { path: 'landing', component: LandingComponent },
@@ -42,6 +44,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LandingComponent,
+    NavbarComponent,
 
     ClickOutsideDirective,
     StopClickPropagationDirective,

@@ -17,11 +17,7 @@ export class SignInComponent implements OnInit {
 
   constructor(private _store: Store<fromUser.State>) { }
 
-  ngOnInit() {
-      this._store.select(v => v).subscribe(v => {
-          console.log('v', v);
-      });
-  }
+  ngOnInit() {}
 
   public onSubmit(f: NgForm): void {
     if (f.valid) {
@@ -29,6 +25,10 @@ export class SignInComponent implements OnInit {
       this._store.dispatch(new UserAction.SignIn(inputValue));
     }
     console.log(f.value);
+  }
+
+  public signup(): void {
+    this._store.dispatch(new UserAction.RedirectSignUp());
   }
 
 } /* istanbul ignore next */
