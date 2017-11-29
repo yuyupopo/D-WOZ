@@ -17,6 +17,7 @@ import 'rxjs/add/observable/fromPromise';
 
 import * as AgentModel from '../model/agent';
 import * as fromAgent from '../actions/agent-action';
+import * as fromRouter from '../../shared/route/route-action';
 import { AgentService } from '../service/agent.service';
 
 
@@ -29,6 +30,7 @@ export class AgentEffects {
         .map((agents: AgentModel.Agent[]) => new fromAgent.LoadComplete(agents))
         .catch(err => of(new fromAgent.LoadError(err)));
     });
+
 
   // @Effect()
   // create$: Observable<Action> = this.action$

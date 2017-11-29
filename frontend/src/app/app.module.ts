@@ -58,7 +58,7 @@ const routes: Routes = [
     EffectsModule.forRoot([
         RouterEffects
     ]),
-    StoreDevtoolsModule.instrument({ maxAge: 10   }),
+    StoreDevtoolsModule.instrument({ maxAge: 25   }),
     StoreRouterConnectingModule,
   ],
   providers: [

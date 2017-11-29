@@ -11,5 +11,5 @@ export { AgentReducer };
 
 export const getAgentState = createFeatureSelector<AgentState>('agent');
 
-export const getAgentList = createSelector(getAgentState,
-    (state: AgentState) => state.agentList);
+export const getAgentList = createSelector(getAgentState, (state: AgentState) => state.agentList);
+export const getSelectedAgent = createSelector(getAgentState, (state: AgentState) => state.selectedAgent);

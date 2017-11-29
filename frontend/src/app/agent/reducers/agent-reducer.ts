@@ -22,7 +22,7 @@ const initialState: AgentState = {
 export function AgentReducer(state: AgentState = initialState, action: fromAgent.Actions) {
     switch (action.type) {
         case fromAgent.SELECT:
-            return {...state, selectedBubble: action.payload};
+            return {...state, selectedAgent: action.payload};
         case fromAgent.LOAD:
             return {...state, loading: true};
         case fromAgent.LOAD_COMPLETE:

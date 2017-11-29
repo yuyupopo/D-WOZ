@@ -18,8 +18,9 @@ export const COMPONENTS = [
 
 const routes: Routes = [
     {path: '', component: AgentListComponent},
+    {path: 'create', component: AgentCreateComponent},
     {path: ':id', component: AgentDetailComponent},
-
+    {path: ':id/edit', component: AgentEditComponent},
 ];
 
 @NgModule({
