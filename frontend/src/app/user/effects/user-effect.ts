@@ -44,19 +44,19 @@ export class UserEffects {
     @Effect()
     redirectSignUp$: Observable<Action> = this.action$.ofType<fromUser.RedirectSignUp>(fromUser.REDIRECT_SIGNUP)
         .map(action => action.payload).mergeMap(query =>
-            Observable.of(new fromRouter.GoByUrl('user/signup'))
+            Observable.of(new fromRouter.GoByUrl('users/signup'))
         );
 
     @Effect()
     signup$: Observable<Action> = this.action$.ofType<fromUser.SignUp>(fromUser.SIGNUP)
         .map(action => action.payload).mergeMap(query =>
-            Observable.of(new fromRouter.GoByUrl('user/signin'))
+            Observable.of(new fromRouter.GoByUrl('users/signin'))
         );
 
     @Effect()
     signout$: Observable<Action> = this.action$.ofType<fromUser.SignOut>(fromUser.SIGNOUT)
         .map(action => action.payload).mergeMap(query =>
-            Observable.of(new fromRouter.GoByUrl('user/signin'))
+            Observable.of(new fromRouter.GoByUrl('users/signin'))
         );
 
   constructor(

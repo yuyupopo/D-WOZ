@@ -32,12 +32,16 @@ import { RouterEffects } from './shared/route/route-effect';
 
 import { NavbarComponent } from './shared/components/navbar.component';
 
+
+
 const routes: Routes = [
-    { path: '', redirectTo: 'user/signin', pathMatch: 'full' }, // for easy testing, temporary
+    { path: '', redirectTo: 'users/signin', pathMatch: 'full' }, // for easy testing, temporary
     { path: 'landing', pathMatch: 'full', component: LandingComponent },
-    { path: 'user', loadChildren: './user/user-state.module.ts#UserStateModule'},
+    { path: 'users', loadChildren: './user/user-state.module.ts#UserStateModule'},
     { path: 'agents', loadChildren: './agent/agent-state.module.ts#AgentStateModule' },
-    { path: '**', redirectTo: 'user/signin' }
+    { path: 'experiments', loadChildren: './experiment/experiment-state.module.ts#ExperimentStateModule' },
+    { path: 'testers', loadChildren: './tester/tester-state.module.ts#TesterStateModule'},
+    { path: '**', redirectTo: 'users/signin' }
 ];
 
 @NgModule({
