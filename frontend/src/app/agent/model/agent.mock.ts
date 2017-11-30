@@ -33,6 +33,16 @@ const d6: Dialog = new Dialog(6, a6);
 b3.nextDialog = d5;
 b4.nextDialog = d6;
 
+const b5: Behavior = new Behavior(5, '아니야 괜찮아');
+const b6: Behavior = new Behavior(6, '#skip');
+const b7: Behavior = new Behavior(7, '좋아 그거 상영해줘');
+const b8: Behavior = new Behavior(8, '다른거 추천해줘');
+
+d5.behaviors = [b7, b8];
+d6.behaviors = [b5, b6];
+
+
+
 const a7: Action = new TalkAction(7, '아니요');
 const d7: Dialog = new Dialog(7, a7);
 

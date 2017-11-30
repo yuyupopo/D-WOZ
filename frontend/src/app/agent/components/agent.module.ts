@@ -9,11 +9,10 @@ import { AgentCreateComponent } from './agent-create/agent-create.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+
 export const COMPONENTS = [
-  AgentCreateComponent,
-  AgentDetailComponent,
-  AgentListComponent,
-  AgentEditComponent,
+
 ];
 
 const routes: Routes = [
@@ -28,8 +27,19 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    AccordionModule.forRoot(),
   ],
-  declarations: COMPONENTS,
-  exports: COMPONENTS,
+  declarations: [
+    AgentCreateComponent,
+    AgentDetailComponent,
+    AgentListComponent,
+    AgentEditComponent,
+    ],
+  exports: [
+    AgentCreateComponent,
+    AgentDetailComponent,
+    AgentListComponent,
+    AgentEditComponent,
+  ],
 })
 export class AgentModule {}

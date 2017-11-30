@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -32,15 +33,13 @@ import { RouterEffects } from './shared/route/route-effect';
 
 import { NavbarComponent } from './shared/components/navbar.component';
 
-
-
 const routes: Routes = [
-    { path: '', redirectTo: 'users/signin', pathMatch: 'full' }, // for easy testing, temporary
+    { path: '', redirectTo: 'agents', pathMatch: 'full' }, // for easy testing, temporary
     { path: 'landing', pathMatch: 'full', component: LandingComponent },
-    { path: 'users', loadChildren: './user/user-state.module.ts#UserStateModule'},
-    { path: 'agents', loadChildren: './agent/agent-state.module.ts#AgentStateModule' },
-    { path: 'experiments', loadChildren: './experiment/experiment-state.module.ts#ExperimentStateModule' },
-    { path: 'testers', loadChildren: './tester/tester-state.module.ts#TesterStateModule'},
+    { path: 'users', loadChildren: './user/user-state.module#UserStateModule'},
+    { path: 'agents', loadChildren: './agent/agent-state.module#AgentStateModule' },
+    { path: 'experiments', loadChildren: './experiment/experiment-state.module#ExperimentStateModule' },
+    { path: 'testers', loadChildren: './tester/tester-state.module#TesterStateModule'},
     { path: '**', redirectTo: 'users/signin' }
 ];
 
@@ -64,6 +63,7 @@ const routes: Routes = [
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25   }),
     StoreRouterConnectingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },

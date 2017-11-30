@@ -18,7 +18,6 @@ import { AgentService } from './service/agent.service';
 // Module
 import { AgentModule } from './components/agent.module';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -28,6 +27,7 @@ import { AgentModule } from './components/agent.module';
       AgentEffects
     ]),
     AgentModule,
+
   ],
   declarations: [
   ],

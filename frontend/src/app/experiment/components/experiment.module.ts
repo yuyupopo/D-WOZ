@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+
 import { ExperimentListComponent } from './experiment-list/experiment-list.component';
 import { ExperimentCreateComponent } from './experiment-create/experiment-create.component';
 import { ExperimentDetailComponent } from './experiment-detail/experiment-detail.component';
 import { ExperimentAnalysisComponent } from './experiment-analysis/experiment-analysis.component';
 import { ExperimentEditComponent } from './experiment-edit/experiment-edit.component';
 import { ExperimentTestComponent } from './experiment-test/experiment-test.component';
+
+import { CovalentStepsModule } from '@covalent/core';
 
 export const COMPONENTS = [
     ExperimentListComponent,
@@ -33,6 +36,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    CovalentStepsModule,
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,

@@ -1,38 +1,44 @@
-<div class="row">
-  <div class="col-md-7 offset-md-1">
-    <ng-container *ngIf="agent">
-      <ng-container *ngFor="let trigger of agent.triggers">
-        <ng-container *ngTemplateOutlet="Trigger; context: { $implicit: trigger }"></ng-container>
-      </ng-container>
+<accordion>
+    <ng-container *ngFor="let trigger of agent.triggers">
+        <accordion-group #group class="trigger">
+            <div accordion-heading class="row">
+                {{trigger.toString()}}
+            </div>
+            <div class="tree">
+                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: trigger.nextDialog }"></ng-container>
+            </div>
+        </accordion-group>
     </ng-container>
-  </div>
-</div>
-
-<ng-template #Trigger let-trigger>
-  <div class="list-group-item">
-    {{trigger.toString()}}
-    <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: trigger.nextDialog }"></ng-container>
-  </div>
-</ng-template>
+</accordion>
 
 <ng-template #Dialog let-dialog>
-  <ng-container *ngTemplateOutlet="Action; context: { $implicit: dialog.action }"></ng-container>
-  <div class="list-group">
-    <ng-container *ngFor="let behavior of dialog.behaviors">
-      <ng-container *ngTemplateOutlet="Behavior; context: { $implicit: behavior }"></ng-container>
-    </ng-container>
-  </div>
+    <ul><li>
+        <ng-container *ngTemplateOutlet="Action; context: { $implicit: dialog.action }"></ng-container>
+        <ul>
+            <ng-container *ngFor="let behavior of dialog.behaviors">
+                <ng-container *ngTemplateOutlet="Behavior; context: { $implicit: behavior }"></ng-container>
+            </ng-container>
+        </ul>
+    </li></ul>
 </ng-template>
 
 <ng-template #Behavior let-behavior>
-  <div class="list-group-item">
-    {{behavior.behavior}}
-    <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: behavior.nextDialog }"></ng-container>
-  </div>
+    <li>
+        <a>
+            <!-- only change here-->
+            {{behavior.behavior}}
+        </a>
+        <ul>
+            <ng-container *ngIf="behavior.nextDialog">
+                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: behavior.nextDialog }"></ng-container>
+            </ng-container>
+        </ul>
+    </li>
 </ng-template>
 
 <ng-template #Action let-action>
-  <div class="list-group-item">
-    {{action.toString()}}
-  </div>
+    <a>
+        <!-- only change here-->
+        {{action.toString()}}
+    </a>
 </ng-template>
