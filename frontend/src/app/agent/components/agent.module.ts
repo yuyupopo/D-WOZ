@@ -9,7 +9,9 @@ import { AgentCreateComponent } from './agent-create/agent-create.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
+// css framework
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 export const COMPONENTS = [
 
@@ -28,6 +30,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     AccordionModule.forRoot(),
+    TabsModule.forRoot()
   ],
   declarations: [
     AgentCreateComponent,

@@ -4,6 +4,14 @@
     padding: 0;
 }
 
+.action {
+    background-color: rgb(84, 214, 179);
+}
+
+.behavior {
+    background-color: rgb(226, 214, 105);
+}
+
 .trigger {
     width: 1000px;
 }
@@ -15,6 +23,7 @@
 
 a {
     width: 200px;
+    color: inherit;
 }
 
 .tree ul {
@@ -89,8 +98,7 @@ right connector from last child*/
 .tree li a{
 	border: 1px solid #ccc;
 	padding: 5px 10px;
-	text-decoration: none;
-	color: #666;
+	/* text-decoration: none; */
 	font-family: arial, verdana, tahoma;
 	font-size: 20px;
 	display: inline-block;
@@ -107,7 +115,9 @@ right connector from last child*/
 /*Time for some hover effects*/
 /*We will apply the hover effect the the lineage of the element also*/
 .tree li a:hover, .tree li a:hover+ul li a {
-	background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+    background: #0769af;
+    color: #fff;
+    border: 1px solid #94a0b4;
 }
 /*Connector styles on hover*/
 .tree li a:hover+ul li::after,

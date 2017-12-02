@@ -3,7 +3,7 @@ import logging
 from django.http import HttpResponse
 from channels import Channel, Group
 from channels.handler import AsgiHandler
-from channels.sessions import channel_session, enforce_ordering
+from channels.sessions import channel_session
 from channels.auth import channel_session_user, channel_session_user_from_http
 from .models import *
 import logging

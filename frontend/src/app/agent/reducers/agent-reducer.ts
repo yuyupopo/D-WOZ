@@ -7,6 +7,10 @@ import { AgentService } from '../service/agent.service';
 
 export interface AgentState {
     agentList: AgentModel.Agent[];
+    triggerList: AgentModel.Trigger[];
+    dialogList: AgentModel.Dialog[];
+    actionList: AgentModel.Action[];
+    behaviorList: AgentModel.Behavior[];
     selectedAgent: AgentModel.Agent;
     loading: boolean;
     error: string;
@@ -14,6 +18,10 @@ export interface AgentState {
 
 const initialState: AgentState = {
     agentList: [],
+    triggerList: [],
+    dialogList: [],
+    actionList: [],
+    behaviorList: [],
     selectedAgent: null,
     loading: false,
     error: ''

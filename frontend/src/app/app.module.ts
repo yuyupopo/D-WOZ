@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent } from './app.component';
 
@@ -31,7 +32,7 @@ import { reducers, CustomSerializer } from './shared/reducer';
 
 import { RouterEffects } from './shared/route/route-effect';
 
-import { NavbarComponent } from './shared/components/navbar.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'agents', pathMatch: 'full' }, // for easy testing, temporary
@@ -67,7 +68,8 @@ const routes: Routes = [
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },
-      SpeechService,
+    { provide: APP_BASE_HREF, useValue: '/'},
+    SpeechService,
     ],
   exports: [
       StoreModule

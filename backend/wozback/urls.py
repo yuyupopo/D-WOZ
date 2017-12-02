@@ -11,6 +11,9 @@ urlpatterns = [
     url('^token$', views.token, name='token'),
     url(r'^agent$', views.agentList, name='agentList'),
     url(r'^agent/(?P<agent_id>[0-9]+)$', views.agentDetail, name='agentDetail'),
+    url(r'^trigger$', views.triggerList, name='triggerList'),
+    url(r'^trigger/(?P<trigger_id>[0-9]+)$', views.triggerDetail, name='triggerDetail'),
+
 ]
 
 channel_routing = [

@@ -1,3 +1,50 @@
-<p>
-  agent-edit works!
-</p>
+<div *ngIf="agent">
+    <p>Agent explanation: {{agent.explanation}}</p>
+
+    <accordion>
+        <ng-container *ngFor="let trigger of agent.triggers">
+            <accordion-group #group class="trigger">
+                <div accordion-heading class="row">
+                    {{trigger.toString()}}
+                </div>
+                <div *ngIf="trigger.nextDialog" class="tree">
+                    <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: trigger.nextDialog }"></ng-container>
+                </div>
+            </accordion-group>
+        </ng-container>
+    </accordion>
+</div>
+
+<ng-template #Dialog let-dialog>
+    <ul><li>
+        <ng-container *ngTemplateOutlet="Action; context: { $implicit: dialog.action }"></ng-container>
+        <ul>
+            <ng-container *ngIf="dialog.behaviors">
+                <ng-container *ngFor="let behavior of dialog.behaviors">
+                    <ng-container *ngTemplateOutlet="Behavior; context: { $implicit: behavior }"></ng-container>
+                </ng-container>
+            </ng-container>
+        </ul>
+    </li></ul>
+</ng-template>
+
+<ng-template #Behavior let-behavior>
+    <li>
+        <a class="behavior">
+            <!-- only change here-->
+            {{behavior.behavior}}
+        </a>
+        <ul>
+            <ng-container *ngIf="behavior.nextDialog">
+                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: behavior.nextDialog }"></ng-container>
+            </ng-container>
+        </ul>
+    </li>
+</ng-template>
+
+<ng-template #Action let-action>
+    <a class="action">
+        <!-- only change here-->
+        {{action.toString()}}
+    </a>
+</ng-template>

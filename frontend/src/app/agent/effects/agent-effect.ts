@@ -14,6 +14,7 @@ import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/fromPromise';
+import { Http, Headers } from '@angular/http';
 
 import * as AgentModel from '../model/agent';
 import * as fromAgent from '../actions/agent-action';
@@ -25,12 +26,10 @@ import { AgentService } from '../service/agent.service';
 export class AgentEffects {
   @Effect()
   load$: Observable<Action> = this.action$.ofType<fromAgent.Load>(fromAgent.LOAD)
-    .map(action => action.payload).mergeMap(query => {
-      return Observable.fromPromise(this._agentService.getAgentList())
-        .map((agents: AgentModel.Agent[]) => new fromAgent.LoadComplete(agents))
-        .catch(err => of(new fromAgent.LoadError(err)));
-    });
-
+    .map(action => action.payload).mergeMap(query =>
+        this._http.get('/api/agent').toPromise().then((res) => {
+            return new fromAgent.LoadComplete(res.json());
+        }));
 
   // @Effect()
   // create$: Observable<Action> = this.action$
@@ -42,6 +41,7 @@ export class AgentEffects {
 
   constructor(
     private action$: Actions,
-    private _agentService: AgentService
+    private _agentService: AgentService,
+    private _http: Http
   ) {}
 }

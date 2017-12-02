@@ -47,4 +47,8 @@ export class AgentListComponent implements OnInit {
     this._store.dispatch(new RouterAction.GoByUrl('agents/create'));
   }
 
+  public editAgent(agent: Agent): void {
+      this._store.dispatch(new RouterAction.GoByUrl(`agents/${agent.id}/edit`));
+  }
+
 }

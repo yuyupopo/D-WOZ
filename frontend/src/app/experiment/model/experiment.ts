@@ -5,7 +5,7 @@ export class Experiment {
     name: string;
     instruction: string[];
     scenario: string;
-    agentList: Agent[];
+    agentList: number[];
 }
 
 export class ExperimentResult {
