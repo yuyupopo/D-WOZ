@@ -9,7 +9,7 @@ export interface Agent {
 export interface Trigger {
   id: number;
   trigger: string;
-  next_dialog: Dialog;
+  dialog: Dialog;
 }
 
 export interface Dialog {

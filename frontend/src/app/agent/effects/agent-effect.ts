@@ -27,9 +27,18 @@ export class AgentEffects {
   @Effect()
   load$: Observable<Action> = this.action$.ofType<fromAgent.Load>(fromAgent.LOAD)
     .map(action => action.payload).mergeMap(query =>
-        this._http.get('/api/agent').toPromise().then((res) => {
-            return new fromAgent.LoadComplete(res.json());
-        }));
+        this._http.get('/api/agent').toPromise().then((res) =>
+            new fromAgent.LoadComplete(res.json())));
+
+    @Effect()
+    loadAgent$: Observable<Action> = this.action$.ofType<fromAgent.LoadAgent>(fromAgent.LOAD_AGENT)
+        .map(action => action.payload).mergeMap(query =>
+            this._http.get(`/api/agent/${query}`).toPromise().then((res) => {
+                console.log(res.json());
+                return new fromAgent.LoadAgentComplete(res.json());
+            }
+
+            ));
 
   // @Effect()
   // create$: Observable<Action> = this.action$

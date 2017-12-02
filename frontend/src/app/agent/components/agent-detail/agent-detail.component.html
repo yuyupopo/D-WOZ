@@ -1,48 +1,41 @@
 <p>Agent explanation: {{agent.explanation}}</p>
 
 <accordion>
-    <ng-container *ngFor="let trigger of agent.triggers">
+    <ng-container *ngFor="let trigger of this.triggers">
         <accordion-group #group class="trigger">
             <div accordion-heading class="row">
-                {{trigger.toString()}}
+                {{trigger.trigger}}
             </div>
-            <div *ngIf="trigger.nextDialog" class="tree">
-                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: trigger.nextDialog }"></ng-container>
+            <div *ngIf="trigger.dialog" class="tree">
+                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: getDialog(trigger.dialog) }"></ng-container>
             </div>
         </accordion-group>
     </ng-container>
 </accordion>
 
 <ng-template #Dialog let-dialog>
-    <ul><li>
-        <ng-container *ngTemplateOutlet="Action; context: { $implicit: dialog.action }"></ng-container>
-        <ul>
-            <ng-container *ngIf="dialog.behaviors">
-                <ng-container *ngFor="let behavior of dialog.behaviors">
-                    <ng-container *ngTemplateOutlet="Behavior; context: { $implicit: behavior }"></ng-container>
+    <ng-container *ngIf="dialog">
+        <ul><li>
+            <a>{{dialog.action}}</a>
+            <ul>
+                <ng-container *ngFor="let behavior of dialog.behavior">
+                    <ng-container *ngTemplateOutlet="Behavior; context: { $implicit: getBehavior(behavior) }"></ng-container>
                 </ng-container>
-            </ng-container>
-        </ul>
-    </li></ul>
+            </ul>
+        </li></ul>
+    </ng-container>
 </ng-template>
 
 <ng-template #Behavior let-behavior>
-    <li>
-        <a class="behavior">
-            <!-- only change here-->
-            {{behavior.behavior}}
-        </a>
-        <ul>
-            <ng-container *ngIf="behavior.nextDialog">
-                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: behavior.nextDialog }"></ng-container>
-            </ng-container>
-        </ul>
-    </li>
-</ng-template>
-
-<ng-template #Action let-action>
-    <a class="action">
-        <!-- only change here-->
-        {{action.toString()}}
-    </a>
+    <ng-container *ngIf="behavior">
+        <li>
+            <a class="behavior">
+                <!-- only change here-->
+                {{behavior.behavior}}
+            </a>
+            <ul>
+                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: getDialog(behavior.next_dialog) }"></ng-container>
+            </ul>
+        </li>
+    </ng-container>
 </ng-template>

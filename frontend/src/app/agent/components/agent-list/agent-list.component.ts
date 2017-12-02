@@ -33,6 +33,7 @@ export class AgentListComponent implements OnInit {
 
   public selectAgent(agent: Agent): void {
     this._store.dispatch(new AgentAction.Select(agent));
+    this._store.dispatch(new AgentAction.LoadAgent(agent.id));
   }
 
   public isSelected(agent: Agent): boolean {
