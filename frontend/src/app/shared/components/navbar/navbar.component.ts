@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as fromRoot from '../../../shared/reducer';
 import * as fromUser from '../../../user/actions/user-action';
+import * as fromRoute from '../../route/route-action';
 
 
 @Component({
@@ -23,5 +24,13 @@ export class NavbarComponent implements OnInit {
 
     public signout(): void {
         this._store.dispatch(new fromUser.SignOut());
+    }
+
+    public gotoAgent(): void {
+        this._store.dispatch(new fromRoute.GoByUrl('agents'));
+    }
+
+    public gotoExperiment(): void {
+        this._store.dispatch(new fromRoute.GoByUrl('experiments'));
     }
 }

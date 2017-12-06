@@ -21,7 +21,7 @@ export const DELETE_ERROR = '[Experiment] delete Error';
 
 export class Load implements Action {
     readonly type = LOAD;
-    constructor(public payload: void) {}
+    constructor(public payload ?: void) {}
 }
 
 export class LoadComplete implements Action {

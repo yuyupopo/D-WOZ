@@ -1,3 +1,22 @@
-<p>
-  experiment-list works!
-</p>
+<div class="container-fluid">
+    <div class="row">
+      <nav class="col-sm-12 col-md-3 bg-light sidebar">
+        <button type="button" class="btn btn-success" (click)="createExperiment()">create</button>
+        <ol class="nav nav-pills flex-column">
+          <ng-container *ngFor="let experiment of experiments$ | async">
+            <li (click)="selectExperiment(experiment)" class="list-group-item" [class.active] = "isSelected(experiment)">
+              <p>Experiment name : {{experiment.name}}</p>
+              <p>Experiment scenario: {{experiment.scenario}}</p>
+            </li>
+          </ng-container>
+        </ol>
+      </nav>
+
+        <ng-container *ngIf="selectedExperiment">
+            <div class="col-sm-12 col-md-9">
+                <button type="button" class="btn btn-info" (click)="editExperiment(selectedExperiment)">Edit</button>
+                <app-experiment-detail [experiment]="selectedExperiment"></app-experiment-detail>
+            </div>
+        </ng-container>
+    </div>
+</div>

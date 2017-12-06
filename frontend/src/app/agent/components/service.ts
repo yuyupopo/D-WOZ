@@ -1,3 +1,3 @@
-export { Agent, Dialog, Behavior, Trigger, Action } from '../model/agent';
+export { Agent, Dialog, Behavior, Trigger } from '../model/agent';
 
 

@@ -121,62 +121,71 @@ def agentDetail(request, agent_id):
     else:
         return HttpResponse(status=401)
 
-# Trigger
-def triggerList(request):
+# Experiment
+def experimentList(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
-            triggerList = Trigger.objects.select_related('triggers').filter(user = request.user.id).values()
-            for trigger in triggerList:
-                trigger.pop('user_id')
-            return JsonResponse(list(triggerList), safe=False)
+            experimentList = Experiment.objects.filter(user = request.user.id)
+            agentList = []
+            for experiment in experimentList:
+                agents = experiment.agents.all()
+                agentList.append([agent.id for agent in agents])
+            experimentList = experimentList.values()
+            for experiment in experimentList:
+                experiment.pop('user_id')
+                experiment['agents'] = agentList.pop()
+            return JsonResponse(list(experimentList), safe=False)
         elif request.method == 'POST':
             requestJsonData = json.loads(request.body.decode())
             name = requestJsonData['name']
-            explanation = requestJsonData['explanation']
-            new_trigger = Trigger(title=title, content=content)
-            new_trigger.user = request.user
-            new_trigger.save()
+            instruction = requestJsonData['instruction']
+            scenario = requestJsonData['scenario']
+            new_experiment = Experiment(name=name, instruction=instruction, scenario=scenario)
+            new_experiment.user = request.user
+            new_experiment.save()
             return HttpResponse(status=201)
         else:
             return HttpResponseNotAllowed(['GET', 'POST'])
     else:
         return HttpResponse(status=401)
 
-def triggerDetail(request, trigger_id):
+def experimentDetail(request, experiment_id):
     if request.user.is_authenticated:
-        trigger_id = int(trigger_id)
+        experiment_id = int(experiment_id)
         if request.method == 'GET':
             try:
-                trigger = Trigger.objects.get(id=trigger_id)
+                experiment = Experiment.objects.get(id=experiment_id)
             except Trigger.DoesNotExist:
                 return HttpResponseNotFound()
-            
-            trigger = model_to_dict(trigger)
-            trigger.pop('user')
+            print(experiment.agents)
+            experiment = model_to_dict(experiment)
+            experiment.pop('user')
             return JsonResponse(trigger)
         elif request.method == 'PUT':
             pass
             jsonData = json.loads(request.body.decode())
             name = jsonData['name']
-            explanation = jsonData['explanation']
+            instruction = jsonData['instruction']
+            scenario = jsonData['scenario']
             try:
-                trigger = Trigger.objects.get(id=trigger_id)
+                experiment = Experiment.objects.get(id=trigger_id)
             except Trigger.DoesNotExist:
                 return HttpResponseNotFound()
             if request.user.id == trigger.user_id:
-                trigger.name = name
-                trigger.explanation = explanation
-                trigger.save()
+                experiment.name = name
+                experiment.instruction = instruction
+                experiment.scenario = scenario
+                experiment.save()
                 return HttpResponse(status=204)
             else:
                 return HttpResponse(status=403)            
         elif request.method == 'DELETE':
             try:
-                trigger = Trigger.objects.get(id=trigger_id)
-            except Trigger.DoesNotExist:
+                experiment = Experiment.objects.get(id=experiment_id)
+            except Experiment.DoesNotExist:
                 return HttpResponseNotFound()
-            if request.user.id == trigger.user_id:
-                trigger.delete()
+            if request.user.id == experiment.user_id:
+                experiment.delete()
                 return HttpResponse(status=204)
             else:
                 return HttpResponse(status=403)
@@ -184,4 +193,3 @@ def triggerDetail(request, trigger_id):
             return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
     else:
         return HttpResponse(status=401)
-

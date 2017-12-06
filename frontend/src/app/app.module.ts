@@ -35,13 +35,13 @@ import { RouterEffects } from './shared/route/route-effect';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'agents', pathMatch: 'full' }, // for easy testing, temporary
+    { path: '', redirectTo: 'experiments', pathMatch: 'full' }, // for easy testing, temporary
     { path: 'landing', pathMatch: 'full', component: LandingComponent },
     { path: 'users', loadChildren: './user/user-state.module#UserStateModule'},
     { path: 'agents', loadChildren: './agent/agent-state.module#AgentStateModule' },
     { path: 'experiments', loadChildren: './experiment/experiment-state.module#ExperimentStateModule' },
     { path: 'testers', loadChildren: './tester/tester-state.module#TesterStateModule'},
-    { path: '**', redirectTo: 'users/signin' }
+    { path: '**', redirectTo: 'experiments' }
 ];
 
 @NgModule({

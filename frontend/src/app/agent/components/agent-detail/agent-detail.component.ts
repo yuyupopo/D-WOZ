@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Agent, Dialog, Trigger, Action, Behavior } from '../service';
+import { Agent, Dialog, Trigger, Behavior } from '../service';
 
 import { AccordionModule, AccordionComponent } from 'ngx-bootstrap';
 

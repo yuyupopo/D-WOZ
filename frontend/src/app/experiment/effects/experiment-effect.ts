@@ -15,6 +15,8 @@ import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/fromPromise';
 
+import { Http } from '@angular/http';
+
 import * as ExperimentModel from '../model/experiment';
 import * as fromExperiment from '../actions/experiment-action';
 
@@ -22,8 +24,13 @@ import * as fromExperiment from '../actions/experiment-action';
 @Injectable()
 export class ExperimentEffects {
 
+    @Effect()
+    load$: Observable<Action> = this.action$.ofType<fromExperiment.Load>(fromExperiment.LOAD)
+        .map(action => action.payload).mergeMap(query =>
+            this._http.get('/api/experiment').toPromise().then((res) =>
+                new fromExperiment.LoadComplete(res.json())));
 
-
-  constructor(
-    private action$: Actions ) {}
+    constructor(
+        private action$: Actions,
+        private _http: Http ) {}
 }

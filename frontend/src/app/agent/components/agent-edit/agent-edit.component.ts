@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Agent, Dialog, Trigger, Action, Behavior } from '../service';
+import { Agent, Dialog, Trigger, Behavior } from '../service';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
