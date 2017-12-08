@@ -9,6 +9,8 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 
 from .models import *
 
+from hashids import Hashids
+
 
 def signup(request):
     print(request)
@@ -155,12 +157,12 @@ def experimentDetail(request, experiment_id):
         if request.method == 'GET':
             try:
                 experiment = Experiment.objects.get(id=experiment_id)
-            except Trigger.DoesNotExist:
+            except Experiment.DoesNotExist:
                 return HttpResponseNotFound()
             print(experiment.agents)
             experiment = model_to_dict(experiment)
             experiment.pop('user')
-            return JsonResponse(trigger)
+            return JsonResponse(experiment)
         elif request.method == 'PUT':
             pass
             jsonData = json.loads(request.body.decode())
@@ -168,10 +170,10 @@ def experimentDetail(request, experiment_id):
             instruction = jsonData['instruction']
             scenario = jsonData['scenario']
             try:
-                experiment = Experiment.objects.get(id=trigger_id)
-            except Trigger.DoesNotExist:
+                experiment = Experiment.objects.get(id=experiment_id)
+            except Experiment.DoesNotExist:
                 return HttpResponseNotFound()
-            if request.user.id == trigger.user_id:
+            if request.user.id == experiment.user_id:
                 experiment.name = name
                 experiment.instruction = instruction
                 experiment.scenario = scenario
@@ -193,3 +195,69 @@ def experimentDetail(request, experiment_id):
             return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
     else:
         return HttpResponse(status=401)
+
+# test
+def testList(request, experiment_id):
+    experiment_id = int(experiment_id)
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            requestJsonData = json.loads(request.body.decode())
+
+            hashids = Hashids(salt='DWOZ')
+
+            link = hashids.encode(experiment_id)
+
+            new_test = Test(experiment_id=experiment_id, link=link)
+            new_test.user = request.user
+            new_test.save()
+            return JsonResponse()
+        else:
+            return HttpResponseNotAllowed(['GET'])
+    else:
+        return HttpResponse(status=401)
+
+def testDetail(request, hash_id):
+    test_id = int(test_id)
+    if request.method == 'GET':
+        try:
+            test = Test.objects.get(id=test_id)
+        except Test.DoesNotExist:
+            return HttpResponseNotFound()
+        print(test.agents)
+        test = model_to_dict(test)
+        test.pop('user')
+        return JsonResponse(test)
+    if request.user.is_authenticated:
+        if request.method == 'PUT':
+            pass
+            jsonData = json.loads(request.body.decode())
+            name = jsonData['name']
+            instruction = jsonData['instruction']
+            scenario = jsonData['scenario']
+            try:
+                test = Test.objects.get(id=test_id)
+            except Test.DoesNotExist:
+                return HttpResponseNotFound()
+            if request.user.id == test.user_id:
+                test.name = name
+                test.instruction = instruction
+                test.scenario = scenario
+                test.save()
+                return HttpResponse(status=204)
+            else:
+                return HttpResponse(status=403)            
+        elif request.method == 'DELETE':
+            try:
+                test = Test.objects.get(id=test_id)
+            except Test.DoesNotExist:
+                return HttpResponseNotFound()
+            if request.user.id == test.user_id:
+                test.delete()
+                return HttpResponse(status=204)
+            else:
+                return HttpResponse(status=403)
+        else:
+            return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])
+    else:
+        return HttpResponse(status=401)
+

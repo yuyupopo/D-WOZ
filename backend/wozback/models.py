@@ -114,3 +114,15 @@ class ExperimentResult(models.Model):
 
     def __str__(self):
         return 'Result: ' + self.experiment.name + ", created at n" + self.created.strftime('%d %B %Y')
+
+class Test(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='tests'
+    )
+    experiment = models.OneToOneField(
+        Experiment,
+        related_name='test',
+        null = True
+    )
+    link = models.CharField(max_length=100)

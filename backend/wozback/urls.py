@@ -9,11 +9,15 @@ urlpatterns = [
     url('^signin$', views.signin, name='signin'),
     url('^signout$', views.signout, name='signout'),
     url('^token$', views.token, name='token'),
+
     url(r'^agent$', views.agentList, name='agentList'),
     url(r'^agent/(?P<agent_id>[0-9]+)$', views.agentDetail, name='agentDetail'),
 
     url(r'^experiment$', views.experimentList, name='experimentList'),
     url(r'^experiment/(?P<experiment_id>[0-9]+)$', views.experimentDetail, name='experimentDetail'),
+
+    url(r'^test/(?P<experiment_id>[0-9]+)$', views.testList, name='testList'),
+    url(r'', views.testDetail, name='testDetail'),
 ]
 
 channel_routing = [

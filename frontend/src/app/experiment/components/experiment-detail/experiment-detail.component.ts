@@ -11,7 +11,6 @@ export class ExperimentDetailComponent implements OnInit {
 
     @Input() experiment: Experiment;
 
-
     constructor() { }
 
     ngOnInit() {

@@ -34,6 +34,8 @@ import { RouterEffects } from './shared/route/route-effect';
 
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
+import { SuiModule } from 'ng2-semantic-ui';
+
 const routes: Routes = [
     { path: '', redirectTo: 'experiments', pathMatch: 'full' }, // for easy testing, temporary
     { path: 'landing', pathMatch: 'full', component: LandingComponent },
@@ -64,7 +66,8 @@ const routes: Routes = [
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25   }),
     StoreRouterConnectingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SuiModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },
