@@ -13,3 +13,4 @@ export const getExperimentState = createFeatureSelector<ExperimentState>('experi
 
 export const getExperimentList = createSelector(getExperimentState, (state: ExperimentState) => state.experimentList);
 export const getSelectedExperiment = createSelector(getExperimentState, (state: ExperimentState) => state.selectedExperiment);
+export const getSelectedExperimentAgents = createSelector(getExperimentState, (state: ExperimentState) => state.agentList);

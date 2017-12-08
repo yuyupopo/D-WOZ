@@ -30,6 +30,12 @@ export class ExperimentEffects {
             this._http.get('/api/experiment').toPromise().then((res) =>
                 new fromExperiment.LoadComplete(res.json())));
 
+    @Effect()
+    select$: Observable<Action> = this.action$.ofType<fromExperiment.Select>(fromExperiment.SELECT)
+        .map(action => action.payload).mergeMap(query =>
+            this._http.get(`/api/experiment/${query.id}`).toPromise().then(res =>
+            new fromExperiment.LoadAgentComplete(res.json().agents)));
+
     constructor(
         private action$: Actions,
         private _http: Http ) {}

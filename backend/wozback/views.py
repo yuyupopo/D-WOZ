@@ -159,9 +159,11 @@ def experimentDetail(request, experiment_id):
                 experiment = Experiment.objects.get(id=experiment_id)
             except Experiment.DoesNotExist:
                 return HttpResponseNotFound()
-            print(experiment.agents)
+            agents = list(experiment.agents.all().values('id', 'name', 'explanation'))
             experiment = model_to_dict(experiment)
             experiment.pop('user')
+            experiment['agents'] = agents
+            print(agents)
             return JsonResponse(experiment)
         elif request.method == 'PUT':
             pass

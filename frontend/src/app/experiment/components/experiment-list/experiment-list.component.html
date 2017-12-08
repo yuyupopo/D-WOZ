@@ -15,7 +15,12 @@
         <ng-container *ngIf="selectedExperiment">
             <div class="col-sm-12 col-md-9">
                 <button type="button" class="btn btn-info" (click)="editExperiment(selectedExperiment)">Edit</button>
-                <app-experiment-detail [experiment]="selectedExperiment"></app-experiment-detail>
+                <button type="button" class="btn btn-info" (click)="testExperiment(selectedExperiment)">Test</button>
+                <button type="button" class="btn btn-info" (click)="analyzeExperiment(selectedExperiment)">Analysis</button>
+                <app-experiment-detail
+                    [experiment]="selectedExperiment"
+                    [agents]="selectedExperimentAgents$ | async">
+                </app-experiment-detail>
             </div>
         </ng-container>
     </div>

@@ -2,7 +2,7 @@ import { Experiment } from '../../model/experiment';
 export interface Agent {
   id: number;
   name: string;
-  triggers: Array<number>;
+  triggers?: Array<number>;
   explanation: string;
 }
 

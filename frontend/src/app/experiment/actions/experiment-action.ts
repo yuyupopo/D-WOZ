@@ -1,9 +1,14 @@
 import { Action } from '@ngrx/store';
 import * as ExperimentModel from '../model/experiment';
+import * as AgentModel from '../../agent/model/agent';
 
-export const LOAD = '[Experiment] Load';
-export const LOAD_COMPLETE = '[Experiment] load Complete';
-export const LOAD_ERROR = '[Experiment] load Error';
+export const LOAD = '[Experiments] Load';
+export const LOAD_COMPLETE = '[Experiments] load Complete';
+export const LOAD_ERROR = '[Experiments] load Error';
+
+export const LOAD_AGENT = '[Agent] Load';
+export const LOAD_AGENT_COMPLETE = '[Agent] load Complete';
+export const LOAD_AGENT_ERROR = '[Agent] load Error';
 
 export const SELECT = '[Experiment] Select';
 
@@ -34,6 +39,25 @@ export class LoadError implements Action {
     constructor(public payload: string) {}
 }
 
+export class LoadAgent implements Action {
+    readonly type = LOAD_AGENT;
+    constructor(public payload: number) {}
+}
+
+export class LoadAgentComplete implements Action {
+    readonly type = LOAD_AGENT_COMPLETE;
+    constructor(public payload: {
+        triggers: AgentModel.Trigger[],
+        dialogs: AgentModel.Dialog[],
+        behaviors: AgentModel.Behavior[]
+    }) {}
+}
+
+export class LoadAgentError implements Action {
+    readonly type = LOAD_AGENT_ERROR;
+    constructor(public payload: string) {}
+}
+
 export class Select implements Action {
     readonly type = SELECT;
     constructor(public payload: ExperimentModel.Experiment) {}
@@ -58,6 +82,9 @@ export type Actions =
     | Load
     | LoadComplete
     | LoadError
+    | LoadAgent
+    | LoadAgentComplete
+    | LoadAgentError
     | Create
     | CreateComplete
     | CreateError

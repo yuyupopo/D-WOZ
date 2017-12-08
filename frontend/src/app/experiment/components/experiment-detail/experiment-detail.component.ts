@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Experiment } from '../../model/experiment';
+import { Agent } from '../../../agent/model/agent';
 
 @Component({
   selector: 'app-experiment-detail',
@@ -10,10 +11,12 @@ import { Experiment } from '../../model/experiment';
 export class ExperimentDetailComponent implements OnInit {
 
     @Input() experiment: Experiment;
+    @Input() agents: Agent[];
 
     constructor() { }
 
     ngOnInit() {
+
     }
 
 }
