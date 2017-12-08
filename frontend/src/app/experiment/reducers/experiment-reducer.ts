@@ -6,6 +6,7 @@ import * as AgentModel from '../../agent/model/agent';
 import * as fromExperiment from '../actions/experiment-action';
 
 export interface ExperimentState {
+    testLink: string;
     experimentList: ExperimentModel.Experiment[];
     agentList: AgentModel.Agent[];
     selectedExperiment: ExperimentModel.Experiment;
@@ -14,6 +15,7 @@ export interface ExperimentState {
 }
 
 const initialState: ExperimentState = {
+    testLink: '',
     experimentList: [],
     agentList: [],
     selectedExperiment: null,
@@ -36,7 +38,14 @@ export function ExperimentReducer(state: ExperimentState = initialState, action:
             return {...state, loading: true};
         case fromExperiment.LOAD_AGENT_COMPLETE:
             console.log(action.payload);
-            return {...state, loading: true, agentList: action.payload };
+            return {...state, loading: false, agentList: action.payload };
+
+        case fromExperiment.CREATE_TEST:
+            return {...state, loading: true};
+        case fromExperiment.CREATE_TEST_COMPLETE:
+            return {...state, testLink: action.payload, loading: false};
+        case fromExperiment.CREATE_ERROR:
+            return {...state, loading: false, error: action.payload };
         default:
             return state;
     }

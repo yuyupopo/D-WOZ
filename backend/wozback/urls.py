@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^experiment$', views.experimentList, name='experimentList'),
     url(r'^experiment/(?P<experiment_id>[0-9]+)$', views.experimentDetail, name='experimentDetail'),
 
-    url(r'^test/(?P<experiment_id>[0-9]+)$', views.testList, name='testList'),
-    url(r'', views.testDetail, name='testDetail'),
+    url(r'^experiment/(?P<experiment_id>[0-9]+)/test$', views.experimentTestList, name='experimentTestList'),
+    url(r'^test/(?P<hash_id>[0-9]+)$', views.testDetail, name='testDetail'),
 ]
 
 channel_routing = [

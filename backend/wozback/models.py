@@ -120,7 +120,7 @@ class Test(models.Model):
         settings.AUTH_USER_MODEL,
         related_name='tests'
     )
-    experiment = models.OneToOneField(
+    experiment = models.ForeignKey(
         Experiment,
         related_name='test',
         null = True

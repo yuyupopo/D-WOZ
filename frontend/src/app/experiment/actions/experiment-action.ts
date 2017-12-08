@@ -46,11 +46,7 @@ export class LoadAgent implements Action {
 
 export class LoadAgentComplete implements Action {
     readonly type = LOAD_AGENT_COMPLETE;
-    constructor(public payload: {
-        triggers: AgentModel.Trigger[],
-        dialogs: AgentModel.Dialog[],
-        behaviors: AgentModel.Behavior[]
-    }) {}
+    constructor(public payload: any) {}
 }
 
 export class LoadAgentError implements Action {
@@ -78,6 +74,23 @@ export class CreateError implements Action {
     constructor(public payload: string) {}
 }
 
+export const CREATE_TEST = '[Experiment] create test';
+export const CREATE_TEST_COMPLETE = '[Experiment] create test complete';
+export const CREATE_TEST_ERROR = '[Experiment] create test error';
+
+export class CreateTest implements Action {
+    readonly type = CREATE_TEST;
+    constructor(public payload: number) {}
+}
+export class CreateTestComplete implements Action {
+    readonly type = CREATE_TEST_COMPLETE;
+    constructor(public payload: string) {}
+}
+export class CreateTestError implements Action {
+    readonly type = CREATE_TEST_ERROR;
+    constructor(public payload: string) {}
+}
+
 export type Actions =
     | Load
     | LoadComplete
@@ -88,4 +101,7 @@ export type Actions =
     | Create
     | CreateComplete
     | CreateError
+    | CreateTest
+    | CreateTestComplete
+    | CreateTestError
     | Select;

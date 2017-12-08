@@ -11,7 +11,8 @@ import { ExperimentAnalysisComponent } from './experiment-analysis/experiment-an
 import { ExperimentEditComponent } from './experiment-edit/experiment-edit.component';
 import { ExperimentTestComponent } from './experiment-test/experiment-test.component';
 
-import { CovalentStepsModule } from '@covalent/core';
+import { CovalentLayoutModule, CovalentStepsModule, CovalentLoadingModule } from '@covalent/core';
+import { TdLoadingService } from '@covalent/core';
 
 export const COMPONENTS = [
     ExperimentListComponent,
@@ -37,8 +38,11 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     CovalentStepsModule,
+    CovalentLayoutModule,
+    CovalentLoadingModule,
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,
+  providers: []
 })
 export class ExperimentModule {}

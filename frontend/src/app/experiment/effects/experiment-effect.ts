@@ -36,6 +36,12 @@ export class ExperimentEffects {
             this._http.get(`/api/experiment/${query.id}`).toPromise().then(res =>
             new fromExperiment.LoadAgentComplete(res.json().agents)));
 
+    @Effect()
+    createTest$: Observable<Action> = this.action$.ofType<fromExperiment.CreateTest>(fromExperiment.CREATE_TEST)
+        .map(action => action.payload).mergeMap(query =>
+            this._http.get(`/api/experiment/${query}/test`).toPromise().then(res =>
+            new fromExperiment.CreateTestComplete(res.json().link)));
+
     constructor(
         private action$: Actions,
         private _http: Http ) {}
