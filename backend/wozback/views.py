@@ -222,9 +222,12 @@ def testDetail(request, hash_id):
     if request.method == 'GET':
         
         hashids = Hashids(salt='DWOZ') 
-        experiment_id, test_id = hashids.decode(hash_id)
+            
         try:
+            experiment_id, test_id = hashids.decode(hash_id)
             test = Test.objects.get(id=test_id)
+        except ValueError:
+            return HttpResponseNotFound()
         except Test.DoesNotExist:
             return HttpResponseNotFound()
         test = model_to_dict(test)

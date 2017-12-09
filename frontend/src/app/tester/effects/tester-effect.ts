@@ -14,6 +14,7 @@ import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/catch';
 
 import { Http } from '@angular/http';
 
@@ -28,13 +29,13 @@ export class TesterEffects {
     @Effect()
     load$: Observable<Action> = this.action$.ofType<fromTester.Load>(fromTester.LOAD)
     .map(action => action.payload).mergeMap(query =>
-        this._http.get(`/api/test/${query}`).toPromise().then((res) => {
+        this._http.get(`/api/test/${query}`).mergeMap((res) => {
             console.log(res.json());
-            return new fromTester.LoadComplete(res.json());
-        })).catch((err) => {
+            return Observable.of(new fromTester.LoadComplete(res.json()));
+        }).catch(err => {
             console.log(err);
             return Observable.of(new fromTester.LoadError(err));
-        });
+        }));
 
     @Effect()
     loadComplete$: Observable<Action> = this.action$.ofType<fromTester.LoadComplete>(fromTester.LOAD_COMPLETE)

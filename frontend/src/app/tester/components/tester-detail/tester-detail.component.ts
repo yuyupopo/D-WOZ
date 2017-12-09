@@ -24,10 +24,13 @@ export class TesterDetailComponent implements OnInit {
 
     step$: Observable<TestStep>;
 
+
+
     constructor(private _store: Store<fromTester.State>) { }
 
     ngOnInit() {
         this.step$ = this._store.select(fromTester.getStep);
+        this._store.dispatch(new TesterAction.Next());
     }
 
     nextStep() {

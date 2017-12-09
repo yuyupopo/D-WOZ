@@ -1,3 +1,19 @@
-<p>
-  tester-detail works!
-</p>
+<ng-container *ngIf="step$ | async as step">
+    <div [ngSwitch]="step">
+        <div *ngSwitchCase="testStep.none">
+            your friend is loading please wait
+        </div>
+
+
+
+        <div *ngSwitchCase="testStep.start">
+            your friend is loading please wait
+        </div>
+
+        <div *ngSwitchCase="testStep.instruction">
+            your friend is loading please wait
+        </div>
+
+
+    </div>
+</ng-container>

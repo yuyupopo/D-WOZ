@@ -7,6 +7,7 @@ import { TesterListComponent } from './tester-list/tester-list.component';
 import { TesterDetailComponent } from './tester-detail/tester-detail.component';
 
 import { CovalentLayoutModule, CovalentStepsModule, CovalentLoadingModule } from '@covalent/core';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 export const COMPONENTS = [
     TesterListComponent,
@@ -24,7 +25,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(routes),
-    CovalentLayoutModule, CovalentStepsModule, CovalentLoadingModule
+    CovalentLayoutModule, CovalentStepsModule, CovalentLoadingModule,
+    AlertModule.forRoot(),
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS,

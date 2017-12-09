@@ -13,4 +13,5 @@ export const getTesterState = createFeatureSelector<TesterState>('tester');
 
 export const getTester = createSelector(getTesterState, (state: TesterState) => state.tester);
 export const getStep = createSelector(getTesterState, (state: TesterState) => state.testPhase);
+export const getError = createSelector(getTesterState, (state: TesterState) => state.error);
 // export const getSelectedTester = createSelector(getTesterState, (state: TesterState) => state.selectedTester);

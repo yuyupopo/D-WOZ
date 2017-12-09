@@ -6,3 +6,7 @@
     <button type="button" (click)="startTest()" class="btn btn-primary">TEST!</button>
 </div>
 {{link}}
+
+<ng-container *ngFor="let alert of alerts">
+    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
+</ng-container>
