@@ -34,6 +34,7 @@ export class ExperimentListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._store.dispatch(new ExperimentAction.Clear());
         this._store.dispatch(new ExperimentAction.Load());
     }
 

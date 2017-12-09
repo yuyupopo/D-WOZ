@@ -40,7 +40,7 @@ export class ExperimentTestComponent implements OnInit {
         });
         this._store.select(fromExperiment.getTestLink).subscribe(link => {
             if (link) {
-                this._loadingService.resolve();
+                // this._loadingService.resolve();
                 this.testLink = link;
             }
         });

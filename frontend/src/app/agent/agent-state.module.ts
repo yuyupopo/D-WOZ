@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 
 // Reducers
-import { AgentReducer } from './reducers/reducer';
+import { reducer } from './reducers/reducer';
 
 // Effects
 import { AgentEffects } from './effects/agent-effect';
@@ -22,7 +22,7 @@ import { AgentModule } from './components/agent.module';
   imports: [
     CommonModule,
     HttpModule,
-    StoreModule.forFeature('agent', AgentReducer),
+    StoreModule.forFeature('agent', reducer),
     EffectsModule.forFeature([
       AgentEffects
     ]),

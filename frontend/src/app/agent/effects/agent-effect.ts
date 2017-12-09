@@ -30,6 +30,13 @@ export class AgentEffects {
             this._http.get('/api/agent').toPromise().then((res) =>
                 new fromAgent.LoadComplete(res.json())));
 
+
+    @Effect()
+    select$: Observable<Action> = this.action$.ofType<fromAgent.Select>(fromAgent.SELECT)
+        .map(action => action.payload).mergeMap(query =>
+            Observable.of(new fromAgent.LoadAgent(query.id))
+        );
+
     @Effect()
     loadAgent$: Observable<Action> = this.action$.ofType<fromAgent.LoadAgent>(fromAgent.LOAD_AGENT)
         .map(action => action.payload).mergeMap(query =>

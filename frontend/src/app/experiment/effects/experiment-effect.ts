@@ -25,19 +25,22 @@ import * as fromExperiment from '../actions/experiment-action';
 export class ExperimentEffects {
 
     @Effect()
-    load$: Observable<Action> = this.action$.ofType<fromExperiment.Load>(fromExperiment.LOAD)
+    loadExperiment$: Observable<Action> = this.action$.ofType<fromExperiment.Load>(fromExperiment.LOAD)
         .map(action => action.payload).mergeMap(query =>
-            this._http.get('/api/experiment').toPromise().then((res) =>
-                new fromExperiment.LoadComplete(res.json())));
+            this._http.get('/api/experiment').toPromise().then((res) => {
+                return new fromExperiment.LoadComplete(res.json());
+            }));
 
     @Effect()
-    select$: Observable<Action> = this.action$.ofType<fromExperiment.Select>(fromExperiment.SELECT)
+    selectExperiment$: Observable<Action> = this.action$.ofType<fromExperiment.Select>(fromExperiment.SELECT)
         .map(action => action.payload).mergeMap(query =>
-            this._http.get(`/api/experiment/${query.id}`).toPromise().then(res =>
-            new fromExperiment.LoadAgentComplete(res.json().agents)));
+            this._http.get(`/api/experiment/${query.id}`).toPromise().then(res => {
+                console.log(res.json());
+                return new fromExperiment.LoadAgentComplete(res.json().agents);
+            }));
 
     @Effect()
-    createTest$: Observable<Action> = this.action$.ofType<fromExperiment.CreateTest>(fromExperiment.CREATE_TEST)
+    createTestExperiment$: Observable<Action> = this.action$.ofType<fromExperiment.CreateTest>(fromExperiment.CREATE_TEST)
         .map(action => action.payload).mergeMap(query =>
             this._http.get(`/api/experiment/${query}/test`).toPromise().then(res =>
             new fromExperiment.CreateTestComplete(res.json().link)));

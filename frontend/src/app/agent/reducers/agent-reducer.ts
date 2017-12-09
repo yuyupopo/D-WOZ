@@ -36,6 +36,7 @@ export function AgentReducer(state: AgentState = initialState, action: fromAgent
         case fromAgent.LOAD_ERROR:
             return {...state, error: action.payload};
         case fromAgent.LOAD_AGENT:
+            console.log('this state', state);
             return {...state, loading: true};
         case fromAgent.LOAD_AGENT_COMPLETE:
             return {

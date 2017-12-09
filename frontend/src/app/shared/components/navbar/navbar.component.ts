@@ -33,4 +33,8 @@ export class NavbarComponent implements OnInit {
     public gotoExperiment(): void {
         this._store.dispatch(new fromRoute.GoByUrl('experiments'));
     }
+
+    public gotoTesters(): void {
+        this._store.dispatch(new fromRoute.GoByUrl('testers'));
+    }
 }

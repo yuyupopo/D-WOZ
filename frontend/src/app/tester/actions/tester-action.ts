@@ -21,12 +21,12 @@ export const DELETE_ERROR = '[Tester] delete Error';
 
 export class Load implements Action {
     readonly type = LOAD;
-    constructor(public payload: void) {}
+    constructor(public payload: string) {}
 }
 
 export class LoadComplete implements Action {
     readonly type = LOAD_COMPLETE;
-    constructor(public payload: TesterModel.Tester[]) {}
+    constructor(public payload: TesterModel.Tester) {}
 }
 
 export class LoadError implements Action {
@@ -54,6 +54,20 @@ export class CreateError implements Action {
     constructor(public payload: string) {}
 }
 
+export const NEXT = 'Next step';
+
+export class Next implements Action {
+    readonly type = NEXT;
+    constructor() {}
+}
+
+export const RESTART = 'Restart test';
+
+export class Restart implements Action {
+    readonly type = RESTART;
+    constructor() {}
+}
+
 export type Actions =
     | Load
     | LoadComplete
@@ -61,4 +75,6 @@ export type Actions =
     | Create
     | CreateComplete
     | CreateError
-    | Select;
+    | Select
+    | Next
+    | Restart;

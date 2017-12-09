@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 
 // Reducers
-import { ExperimentReducer } from './reducers/reducer';
+import { reducer } from './reducers/reducer';
 
 // Effects
 import { ExperimentEffects } from './effects/experiment-effect';
@@ -22,7 +22,7 @@ import { ExperimentModule } from './components/experiment.module';
   imports: [
     CommonModule,
     HttpModule,
-    StoreModule.forFeature('experiment', ExperimentReducer),
+    StoreModule.forFeature('experiment', reducer),
     EffectsModule.forFeature([
       ExperimentEffects
     ]),

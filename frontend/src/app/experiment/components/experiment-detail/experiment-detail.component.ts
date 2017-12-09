@@ -16,7 +16,7 @@ export class ExperimentDetailComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-
+        console.log('agents', this.agents);
     }
 
 }

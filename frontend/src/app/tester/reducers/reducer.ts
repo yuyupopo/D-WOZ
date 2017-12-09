@@ -11,5 +11,6 @@ export { TesterReducer };
 
 export const getTesterState = createFeatureSelector<TesterState>('tester');
 
-export const getTesterList = createSelector(getTesterState, (state: TesterState) => state.testerList);
-export const getSelectedTester = createSelector(getTesterState, (state: TesterState) => state.selectedTester);
+export const getTester = createSelector(getTesterState, (state: TesterState) => state.tester);
+export const getStep = createSelector(getTesterState, (state: TesterState) => state.testPhase);
+// export const getSelectedTester = createSelector(getTesterState, (state: TesterState) => state.selectedTester);

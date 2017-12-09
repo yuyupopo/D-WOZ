@@ -10,7 +10,7 @@ export const LOAD_AGENT = '[Agent] Load';
 export const LOAD_AGENT_COMPLETE = '[Agent] load Complete';
 export const LOAD_AGENT_ERROR = '[Agent] load Error';
 
-export const SELECT = '[Experiment] Select';
+export const SELECT = '[Experiment ] Select';
 
 export const CREATE = '[Experiment] create';
 export const CREATE_COMPLETE = '[Experiment] create Complete';
@@ -23,6 +23,13 @@ export const EDIT_ERROR = '[Experiment] edit Error';
 export const DELETE = '[Experiment] delete';
 export const DELETE_COMPLETE = '[Experiment] delete Complete';
 export const DELETE_ERROR = '[Experiment] delete Error';
+
+export const CLEAR = '[experiment] clear state';
+
+export class Clear implements Action {
+    readonly type = CLEAR;
+    constructor(public payload ?: void) {}
+}
 
 export class Load implements Action {
     readonly type = LOAD;
@@ -92,6 +99,7 @@ export class CreateTestError implements Action {
 }
 
 export type Actions =
+    | Clear
     | Load
     | LoadComplete
     | LoadError

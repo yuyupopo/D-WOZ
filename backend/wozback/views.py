@@ -209,30 +209,27 @@ def experimentTestList(request, experiment_id):
             new_test.user = request.user
             new_test.save()
 
-            link = {'link': hashids.encode(experiment_id, new_test.id)}
+            link = hashids.encode(experiment_id, new_test.id)
             new_test.link = link
             new_test.save()
-            return JsonResponse(link)
+            return JsonResponse({"link": link})
         else:
             return HttpResponseNotAllowed(['GET'])
     else:
         return HttpResponse(status=401)
 
 def testDetail(request, hash_id):
-    hash_id = int(hash_id)
     if request.method == 'GET':
         
         hashids = Hashids(salt='DWOZ') 
-        print(hashids.decode(hash_id))
-
-        # try:
-        #     test = Test.objects.get(id=test_id)
-        # except Test.DoesNotExist:
-        #     return HttpResponseNotFound()
-        # print(test.agents)
-        # test = model_to_dict(test)
-        # test.pop('user')
-        # return JsonResponse(test)
+        experiment_id, test_id = hashids.decode(hash_id)
+        try:
+            test = Test.objects.get(id=test_id)
+        except Test.DoesNotExist:
+            return HttpResponseNotFound()
+        test = model_to_dict(test)
+        test.pop('user')
+        return JsonResponse(test)
     if request.user.is_authenticated:
         if request.method == 'PUT':
             pass

@@ -1,3 +1,8 @@
-<p>
-  tester-list works!
-</p>
+<div class="form-inline">
+    <div class="form-group mx-sm-3">
+        <label for="test-link" class="sr-only">Password</label>
+        <input [(ngModel)]="link" type="text" class="form-control" id="test-link" placeholder="Test code">
+    </div>
+    <button type="button" (click)="startTest()" class="btn btn-primary">TEST!</button>
+</div>
+{{link}}
