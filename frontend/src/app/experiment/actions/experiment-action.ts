@@ -98,6 +98,48 @@ export class CreateTestError implements Action {
     constructor(public payload: string) {}
 }
 
+export const TEST_START = '[Test] start';
+export class TestStart implements Action {
+    readonly type = TEST_START;
+    constructor(public payload: string) {}
+}
+
+export const TEST_RESPONSE_FAIL = '[Test] response fail';
+export class TestResponseFail implements Action {
+    readonly type = TEST_RESPONSE_FAIL;
+    constructor(public payload: {
+        err: string,
+        behavior: string,
+        hypothesisList: string[],
+    }) {}
+}
+
+export const TEST_RESPONSE_SUCCESS = '[Test] response success';
+export class TestResponseSucess implements Action {
+    readonly type = TEST_RESPONSE_SUCCESS;
+    constructor(public payload: {
+        action: string,
+        behavior: string,
+    }) {}
+}
+
+export const TEST_DISCIPLINE = '[Test] discipline';
+export class TestDiscipline implements Action {
+    readonly type = TEST_DISCIPLINE;
+    constructor(public payload: string) {}
+}
+export const TEST_INTERRUPT = '[Test] interrupt';
+export class TestInterrupt implements Action {
+    readonly type = TEST_INTERRUPT;
+    constructor(public payload: string) {}
+}
+
+export const TEST_END = '[Test] end';
+export class TestEnd implements Action {
+    readonly type = TEST_END;
+    constructor(public payload: string) {}
+}
+
 export type Actions =
     | Clear
     | Load
@@ -112,4 +154,11 @@ export type Actions =
     | CreateTest
     | CreateTestComplete
     | CreateTestError
-    | Select;
+    | Select
+    | TestStart
+    | TestResponseSucess
+    | TestResponseFail
+    | TestDiscipline
+    | TestInterrupt
+    | TestEnd;
+

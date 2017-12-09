@@ -10,6 +10,14 @@ export interface ExperimentState {
     experimentList: ExperimentModel.Experiment[];
     agents: AgentModel.Agent[];
     selectedExperiment: ExperimentModel.Experiment;
+
+    isTested: boolean;
+    isException: boolean;
+    behavior: string;
+    hypothesisList: string[];
+    action: string;
+
+
     loading: boolean;
     error: string;
 }
@@ -19,6 +27,14 @@ const initialState: ExperimentState = {
     experimentList: [],
     agents: [],
     selectedExperiment: null,
+
+    isTested: false,
+    isException: false,
+    behavior: '',
+    hypothesisList: [],
+    action: '',
+
+
     loading: false,
     error: ''
 };
@@ -49,6 +65,17 @@ export function ExperimentReducer(state: ExperimentState = initialState, action:
             return {...state, testLink: action.payload, loading: false};
         case fromExperiment.CREATE_ERROR:
             return {...state, loading: false, error: action.payload };
+
+        case fromExperiment.TEST_START:
+            return {...state, isTested: true};
+
+        case fromExperiment.TEST_RESPONSE_SUCCESS:
+            return {...state, behavior: action.payload.behavior, action: action.payload.action, isExcpetion: false};
+        case fromExperiment.TEST_RESPONSE_FAIL:
+            return {...state, behavior: action.payload.behavior,
+                hypothesisList: action.payload.hypothesisList, error: action.payload.err, isException: true};
+        case fromExperiment.TEST_END:
+            return {...state, isTested: false};
         default:
             return state;
     }

@@ -13,6 +13,7 @@ import { reducer } from './reducers/reducer';
 import { ExperimentEffects } from './effects/experiment-effect';
 
 // Service
+import { ExperimentService } from './service/experiment.service';
 
 // Module
 import { ExperimentModule } from './components/experiment.module';
@@ -34,6 +35,6 @@ import { ExperimentModule } from './components/experiment.module';
     StoreModule,
     EffectsModule,
   ],
-  providers: [  ]
+  providers: [ ExperimentService, ]
 })
 export class ExperimentStateModule { }

@@ -1,5 +1,21 @@
 <div layout="row">
-    <div class="input-group">
-        new link: {{testLink}}
+    <h1>new link: {{testLink}}</h1>
+
+    <div *ngIf="isTesting">
+        <h1>Test is currently going on</h1>
+        <div *ngIf="isException$ | async; then discipline else supervise"></div>
+        <ng-template #discipline>
+            <p>need discipline!</p>
+            <p>behavior: {{currBehavior}}, hypothesis list:
+                <ng-container *ngFor="let hypothesis of currHypothesisList">
+                    {{hypothesis}}
+                </ng-container>
+            </p>
+            <input type="text" [(ngModel)]="disciplineText" />
+        </ng-template>
+        <ng-template #supervise>
+            <p>your apprentice is doing well</p>
+            <p>behavior: {{currBehavior}}, action: {{currAction}}</p>
+        </ng-template>
     </div>
 </div>

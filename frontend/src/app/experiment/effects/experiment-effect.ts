@@ -15,38 +15,49 @@ import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/withLatestFrom';
 
 import { Http } from '@angular/http';
 
-import * as ExperimentModel from '../model/experiment';
-import * as fromExperiment from '../actions/experiment-action';
+import { Store } from '@ngrx/store';
 
+import * as ExperimentModel from '../model/experiment';
+import * as ExperimentAction from '../actions/experiment-action';
+import * as fromExperiment from '../reducers/reducer';
+
+import { ExperimentService } from '../service/experiment.service';
 
 @Injectable()
 export class ExperimentEffects {
 
     @Effect()
-    loadExperiment$: Observable<Action> = this.action$.ofType<fromExperiment.Load>(fromExperiment.LOAD)
+    loadExperiment$: Observable<Action> = this.action$.ofType<ExperimentAction.Load>(ExperimentAction.LOAD)
         .map(action => action.payload).mergeMap(query =>
             this._http.get('/api/experiment').toPromise().then((res) => {
-                return new fromExperiment.LoadComplete(res.json());
+                return new ExperimentAction.LoadComplete(res.json());
             }));
 
     @Effect()
-    selectExperiment$: Observable<Action> = this.action$.ofType<fromExperiment.Select>(fromExperiment.SELECT)
+    selectExperiment$: Observable<Action> = this.action$.ofType<ExperimentAction.Select>(ExperimentAction.SELECT)
         .map(action => action.payload).mergeMap(query =>
             this._http.get(`/api/experiment/${query.id}`).toPromise().then(res => {
                 console.log(res.json());
-                return new fromExperiment.LoadAgentComplete(res.json().agents);
+                return new ExperimentAction.LoadAgentComplete(res.json().agents);
             }));
 
     @Effect()
-    createTestExperiment$: Observable<Action> = this.action$.ofType<fromExperiment.CreateTest>(fromExperiment.CREATE_TEST)
-        .map(action => action.payload).mergeMap(query =>
-            this._http.get(`/api/experiment/${query}/test`).toPromise().then(res =>
-            new fromExperiment.CreateTestComplete(res.json().link)));
+    createTestExperiment$: Observable<Action> = this.action$.ofType<ExperimentAction.CreateTest>(ExperimentAction.CREATE_TEST)
+        .withLatestFrom(this._store).mergeMap(([action, state]) =>
+            this._http.get(`/api/experiment/${action.payload}/test`).toPromise().then(res => {
+                console.log(state);
+                const id = (state as any).experiment.experiment.selectedExperiment.id;
+                this._experimentSerivce.startSupervision(id);
+                return new ExperimentAction.CreateTestComplete(res.json().link);
+            }));
 
     constructor(
         private action$: Actions,
-        private _http: Http ) {}
+        private _http: Http,
+        private _experimentSerivce: ExperimentService,
+        private _store: Store<fromExperiment.State> ) {}
 }

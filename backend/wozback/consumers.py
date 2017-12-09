@@ -83,15 +83,24 @@ def ws_message(message):
                 "text": json.dumps({"header": "start_experiment", "accept": 'False', "body": "experiment not exist"})})
             return
         
-        Group('test-'+str(experiment_id), channel_layer=message.channel_layer).add(message.reply_channel)
+        Group('test-apprentice'+str(experiment_id), channel_layer=message.channel_layer).add(message.reply_channel)
         message.channel_session['experiment_id'] = int(experiment.id)
 
         e = {'id': experiment_id, 'instruction': experiment.instruction, 'scenario': experiment.scenario}
 
-        message.reply_channel.send({"text": 
+        Group('test-apprentice'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
+            json.dumps({"header": "start_experiment", "accept": 'True', "body": e })})
+        Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
             json.dumps({"header": "start_experiment", "accept": 'True', "body": e })})
         return 
     
+    elif command == 'start_supervision':
+        experiment_id = int(body['experiment_id'])
+        Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).add(message.reply_channel)
+        message.reply_channel.send({"text": 
+                json.dumps({"header": "start_supervision", "accept": 'True', "body": 'ok' })})
+        return 
+
     elif command == 'send_trigger':
         try:
             trigger = str(body['trigger'])
@@ -123,11 +132,16 @@ def ws_message(message):
 
             print(dialog)
             message.channel_session['dialog_id'] = int(dialog.id)
-            message.reply_channel.send({"text": 
+            Group('test-apprentice'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
                 json.dumps({"header": "send_action", "accept": 'True', "body": dialog.action })})
+            Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
+                json.dumps({"header": "send_action", "accept": 'True', "body": {'behavior': trigger, 'action': dialog.action} })})
         else: 
             message.reply_channel.send({"text": 
                 json.dumps({"header": "send_action", "accept": 'False', "body": 'no trigger' })})
+            Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
+                json.dumps({"header": "send_action", "accept": 'False', "body": {'err': 'no trigger', 'behavior': trigger, 'hypothesisList': triggerList} })})
+                
         return 
 
     elif command == 'send_behavior':
@@ -167,11 +181,18 @@ def ws_message(message):
 
             print(dialog)
             message.channel_session['dialog_id'] = nextDialogId
-            message.reply_channel.send({"text": 
+            Group('test-apprentice'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
                 json.dumps({"header": "send_action", "accept": 'True', "body": dialog.action })})
+            Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
+                json.dumps({"header": "send_action", "accept": 'True', "body": {'behavior': behavior, 'action': dialog.action} })})
         else: 
             message.reply_channel.send({"text": 
-                json.dumps({"header": "send_action", "accept": 'False', "body": 'no trigger' })})
+                json.dumps({"header": "send_action", "accept": 'False', "body": 'no hypothesis' })})
+
+            behaviors = [b['behavior'] for b in list(behaviors)]
+
+            Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
+                json.dumps({"header": "send_action", "accept": 'False', "body": {'err': 'no hypothesis', 'behavior': behavior, 'hypothesisList': behaviors} })})
         return 
     
 

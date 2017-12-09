@@ -20,4 +20,12 @@ export const getExperimentState = createSelector(getExperiment, (state: State) =
 export const getExperimentList = createSelector(getExperimentState, (state: ExperimentState) => state.experimentList);
 export const getSelectedExperiment = createSelector(getExperimentState, (state: ExperimentState) => state.selectedExperiment);
 export const getSelectedExperimentAgents = createSelector(getExperimentState, (state: ExperimentState) => state.agents);
+
 export const getTestLink = createSelector(getExperimentState, (state: ExperimentState) => state.testLink);
+
+export const isTesting = createSelector(getExperimentState, (state: ExperimentState) => state.isTested);
+export const isException = createSelector(getExperimentState, (state: ExperimentState) => state.isException);
+export const getBehavior = createSelector(getExperimentState, (state: ExperimentState) => state.behavior);
+export const getHypothesisList = createSelector(getExperimentState, (state: ExperimentState) => state.hypothesisList);
+export const getAction = createSelector(getExperimentState, (state: ExperimentState) => state.action);
+
