@@ -5,6 +5,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/mergeMap';
 import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';

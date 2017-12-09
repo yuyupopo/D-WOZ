@@ -13,6 +13,8 @@ import { TesterReducer } from './reducers/reducer';
 import { TesterEffects } from './effects/tester-effect';
 
 // Service
+import { TestService } from './service/test.service';
+import { SpeechService } from './service/speech.service';
 
 // Module
 import { TesterModule } from './components/tester.module';
@@ -34,6 +36,9 @@ import { TesterModule } from './components/tester.module';
     StoreModule,
     EffectsModule,
   ],
-  providers: [  ]
+  providers: [
+      TestService,
+      SpeechService
+]
 })
 export class TesterStateModule { }

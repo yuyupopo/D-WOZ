@@ -2,7 +2,7 @@ from django.conf.urls import url
 from wozback import views
 from channels.routing import route
 
-from wozback.consumers import ws_add, ws_message, ws_disconnect
+from wozback.consumers import ws_connect, ws_message, ws_disconnect
 
 urlpatterns = [
     url('^signup$', views.signup, name='signup'),
@@ -22,7 +22,7 @@ urlpatterns = [
 
 channel_routing = [
     # route("http.request", "wozback.consumers.http_consumer"),
-    route("websocket.connect", ws_add),
+    route("websocket.connect", ws_connect),
     route("websocket.receive", ws_message),
     route("websocket.disconnect", ws_disconnect),
 ]

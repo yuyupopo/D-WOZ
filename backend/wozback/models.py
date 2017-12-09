@@ -126,3 +126,6 @@ class Test(models.Model):
         null = True
     )
     link = models.CharField(max_length=100)
+
+    def __str__(self):
+        return 'Test: ' + self.experiment.name + ", link: " + self.link

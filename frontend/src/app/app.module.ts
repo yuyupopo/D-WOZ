@@ -8,12 +8,11 @@ import { AppComponent } from './app.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
-import { SpeechService } from './service/speech.service';
-
 import { LandingComponent } from './landing/landing.component';
 
 // service
-import { AuthenticationService } from './service/authentication.service';
+import { ServerSocket } from './shared/service/websocket.service';
+import { WebSocketService } from 'angular2-websocket-service';
 
 // directive
 import { ClickOutsideDirective } from './directive/click-outside.directive';
@@ -72,7 +71,8 @@ const routes: Routes = [
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     { provide: APP_BASE_HREF, useValue: '/'},
-    SpeechService,
+    WebSocketService,
+    ServerSocket,
     ],
   exports: [
       StoreModule

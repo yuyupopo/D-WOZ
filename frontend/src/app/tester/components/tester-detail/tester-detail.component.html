@@ -1,19 +1,54 @@
-<ng-container *ngIf="step$ | async as step">
-    <div [ngSwitch]="step">
-        <div *ngSwitchCase="testStep.none">
-            your friend is loading please wait
+<div class="container">
+    <ng-container *ngIf="step$ | async as step">
+        <div [ngSwitch]="step">
+            <div *ngSwitchCase="testStep.none">
+                your friend is loading please wait
+            </div>
+
+            <div *ngSwitchCase="testStep.start">
+                <h2>Hello! welcome to D-WOZ. Please enter your profile below. All information is secured.</h2>
+
+                <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">START!</button>
+            </div>
+
+            <div *ngSwitchCase="testStep.instruction">
+                <h2>Instructions</h2>
+                <div *ngIf="experiment$ | async as experiment">
+                    {{experiment.instruction}}
+                </div>
+                <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Next</button>
+            </div>
+
+            <div *ngSwitchCase="testStep.scenario">
+                <h2>Scenario</h2>
+                <div *ngIf="experiment$ | async as experiment">
+                    {{experiment.scenario}}
+                </div>
+                <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Next</button>
+            </div>
+
+            <div *ngSwitchCase="testStep.chat">
+                <h2>Talk now! I'm listening</h2>
+                <button type="button" class="btn btn-lg btn-success" (click)="endChat()">Next</button>
+            </div>
+
+            <div *ngSwitchCase="testStep.survey">
+                <h2>survey
+                do you have anything to say?</h2>
+                <button type="button" class="btn btn-lg btn-success" (click)="nextStep()">Next</button>
+            </div>
+
+            <div *ngSwitchCase="testStep.end">
+                <h2>Thank you
+                end</h2>
+                <button type="button" class="btn btn-lg btn-success" (click)="endTest()">Next</button>
+            </div>
+
+            <div *ngSwitchDefault>
+                something got wrong!
+            </div>
+
         </div>
+    </ng-container>
 
-
-
-        <div *ngSwitchCase="testStep.start">
-            your friend is loading please wait
-        </div>
-
-        <div *ngSwitchCase="testStep.instruction">
-            your friend is loading please wait
-        </div>
-
-
-    </div>
-</ng-container>
+</div>
