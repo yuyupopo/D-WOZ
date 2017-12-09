@@ -100,12 +100,12 @@ export class SpeechService {
        //  msg.onend = function(event) { console.log('Speech complete'); }
         // Queue this utterance.
         (<any>window).speechSynthesis.speak(msg);
-        console.log('Speech complete');
-        this._store.dispatch(new TesterAction.SpeakStop());
-        // msg.onend = (event) => {
-        //     console.log('Speech complete');
-        //     this._store.dispatch(new TesterAction.SpeakStop());
-        // };
+        // console.log('Speech complete');
+        // this._store.dispatch(new TesterAction.SpeakStop());
+        msg.onend = (event) => {
+            console.log('Speech complete');
+            this._store.dispatch(new TesterAction.SpeakStop());
+        };
     }
 
     DestroySpeechObject() {
