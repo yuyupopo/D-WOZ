@@ -96,6 +96,8 @@ def ws_message(message):
     
     elif command == 'start_supervision':
         experiment_id = int(body['experiment_id'])
+        message.channel_session['experiment_id'] = experiment_id
+        print('experiment id' + str(experiment_id) + ' added')
         Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).add(message.reply_channel)
         message.reply_channel.send({"text": 
                 json.dumps({"header": "start_supervision", "accept": 'True', "body": 'ok' })})
@@ -131,7 +133,8 @@ def ws_message(message):
                     json.dumps({"header": "send_action", "accept": 'False', "body": 'no dialog' })})
 
             print(dialog)
-            message.channel_session['dialog_id'] = int(dialog.id)
+            dialog_id = int(dialog.id)
+            message.channel_session['dialog_id'] = dialog_id
             Group('test-apprentice'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
                 json.dumps({"header": "send_action", "accept": 'True', "body": dialog.action })})
             Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
@@ -194,6 +197,19 @@ def ws_message(message):
             Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
                 json.dumps({"header": "send_action", "accept": 'False', "body": {'err': 'no hypothesis', 'behavior': behavior, 'hypothesisList': behaviors} })})
         return 
+    
+    elif command == 'send_discipline':
+        print('new discipline')
+        action = str(body['discipline'])
+        experiment_id = int(message.channel_session['experiment_id'])
+    
+        print(action)
+        Group('test-apprentice'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
+            json.dumps({"header": "send_action", "accept": 'True', "body": action })})
+        Group('test_wizard-'+str(experiment_id), channel_layer=message.channel_layer).send({"text": 
+            json.dumps({"header": "send_action", "accept": 'True', "body": {'behavior': '', 'action': action} })})
+        return 
+        
     
 
 @channel_session_user

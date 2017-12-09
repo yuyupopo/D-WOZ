@@ -74,6 +74,7 @@ export class ExperimentTestComponent implements OnInit {
         });
     }
     public discipline() {
+        console.log('discipline');
         this._store.dispatch(new ExperimentAction.TestDiscipline(this.disciplineText));
     }
 }

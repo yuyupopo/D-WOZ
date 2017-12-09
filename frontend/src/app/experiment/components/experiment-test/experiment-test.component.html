@@ -3,8 +3,8 @@
 
     <div *ngIf="isTesting">
         <h1>Test is currently going on</h1>
-        <div *ngIf="isException$ | async; then discipline else supervise"></div>
-        <ng-template #discipline>
+        <div *ngIf="isException$ | async; then disciplineMode else superviseMode"></div>
+        <ng-template #disciplineMode>
             <p>need discipline!</p>
             <p>behavior: {{currBehavior}}, hypothesis list:
                 <ng-container *ngFor="let hypothesis of currHypothesisList">
@@ -12,8 +12,9 @@
                 </ng-container>
             </p>
             <input type="text" [(ngModel)]="disciplineText" />
+            <button type="button" (click)="discipline()" class="btn btn-danger">TEST!</button>
         </ng-template>
-        <ng-template #supervise>
+        <ng-template #superviseMode>
             <p>your apprentice is doing well</p>
             <p>behavior: {{currBehavior}}, action: {{currAction}}</p>
         </ng-template>

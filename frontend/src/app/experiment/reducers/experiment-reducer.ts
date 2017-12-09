@@ -17,7 +17,6 @@ export interface ExperimentState {
     hypothesisList: string[];
     action: string;
 
-
     loading: boolean;
     error: string;
 }
@@ -70,7 +69,8 @@ export function ExperimentReducer(state: ExperimentState = initialState, action:
             return {...state, isTested: true};
 
         case fromExperiment.TEST_RESPONSE_SUCCESS:
-            return {...state, behavior: action.payload.behavior, action: action.payload.action, isExcpetion: false};
+            return {...state, behavior: action.payload.behavior, action: action.payload.action,
+                isExcpetion: false};
         case fromExperiment.TEST_RESPONSE_FAIL:
             return {...state, behavior: action.payload.behavior,
                 hypothesisList: action.payload.hypothesisList, error: action.payload.err, isException: true};

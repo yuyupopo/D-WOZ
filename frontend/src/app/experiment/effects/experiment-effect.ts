@@ -16,6 +16,7 @@ import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/observable/of';
 
 import { Http } from '@angular/http';
 
@@ -54,6 +55,20 @@ export class ExperimentEffects {
                 this._experimentSerivce.startSupervision(id);
                 return new ExperimentAction.CreateTestComplete(res.json().link);
             }));
+
+    @Effect({dispatch: false})
+    discipline$: Observable<Action> = this.action$.ofType<ExperimentAction.TestDiscipline>(ExperimentAction.TEST_DISCIPLINE)
+        .map(action => action.payload).mergeMap(query => {
+            this._experimentSerivce.sendDiscipline(query);
+            return Observable.of(null);
+        });
+
+    @Effect({dispatch: false})
+        interrupt$: Observable<Action> = this.action$.ofType<ExperimentAction.TestInterrupt>(ExperimentAction.TEST_INTERRUPT)
+            .map(action => action.payload).mergeMap(query => {
+                this._experimentSerivce.interupt(query);
+                return Observable.of(null);
+            });
 
     constructor(
         private action$: Actions,
