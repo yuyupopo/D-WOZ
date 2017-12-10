@@ -87,7 +87,9 @@ export class SpeechService {
       }
 
     public talk (value: string): void {
+        const msgholder = [];
         const msg = new SpeechSynthesisUtterance();
+        msgholder.push(msg);
         // Set the text.
         msg.text = value;
        // Set the attributes.
