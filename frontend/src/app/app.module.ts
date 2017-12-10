@@ -34,6 +34,7 @@ import { RouterEffects } from './shared/route/route-effect';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 import { SuiModule } from 'ng2-semantic-ui';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 const routes: Routes = [
     { path: '', redirectTo: 'experiments', pathMatch: 'full' }, // for easy testing, temporary
@@ -66,7 +67,8 @@ const routes: Routes = [
     StoreDevtoolsModule.instrument({ maxAge: 25   }),
     StoreRouterConnectingModule,
     BrowserAnimationsModule,
-    SuiModule
+    SuiModule,
+    CollapseModule.forRoot()
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },

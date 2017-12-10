@@ -4,10 +4,10 @@
             <i class="fa fa-list fa-fw"></i>
             D-WOZ
         </span>
-        <button class="navbar-toggler" type="button" >
+        <button class="navbar-toggler" (click)="collapse=!collapse" type="button" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse">
+        <div class="navbar-collapse" (click)="collapse=true" [hidden]="collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" (click)="gotoAgent()">Agents </a>
@@ -28,3 +28,4 @@
         </div>
     </div>
 </nav>
+

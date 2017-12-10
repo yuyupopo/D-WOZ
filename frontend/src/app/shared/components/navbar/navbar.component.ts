@@ -15,6 +15,7 @@ import * as fromRoute from '../../route/route-action';
 export class NavbarComponent implements OnInit {
 
     isLoggedIn: Observable<boolean>;
+    collapse = true;
 
     constructor(private _store: Store<fromRoot.State>) {
         this.isLoggedIn = this._store.select(fromRoot.getUserState).map(userState => userState.signedIn);
@@ -37,4 +38,5 @@ export class NavbarComponent implements OnInit {
     public gotoTesters(): void {
         this._store.dispatch(new fromRoute.GoByUrl('testers'));
     }
+
 }
