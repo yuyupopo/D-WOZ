@@ -1,7 +1,9 @@
 <div layout="row">
-    <h1><p>new link: {{testLink}}</p></h1>
+    <div class="list-group-item">
+        <h1><p>new link: {{testLink}}</p></h1>
+    </div>
 
-    <div *ngIf="isTesting">
+    <div *ngIf="isTesting" class="list-group-item">
         <h1>Test is currently going on</h1>
         <div *ngIf="isException$ | async; then disciplineMode else superviseMode"></div>
         <ng-template #disciplineMode>
