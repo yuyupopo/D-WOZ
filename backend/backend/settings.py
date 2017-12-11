@@ -25,20 +25,32 @@ SECRET_KEY = '3eo_an-r@r9$b89k7-=b$t3q7teb$)0+48ir2y^i7@#r7kc5_='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'backend.apps.BusybackConfig',
+    'wozback.apps.WozbackConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    'django_extensions',
 ]
+
+CHANNEL_LAYERS = {
+	"default": {
+		"BACKEND": "asgi_redis.RedisChannelLayer",
+		"CONFIG": {
+			"hosts": [("localhost", 6379)],
+		},
+		"ROUTING": "wozback.urls.channel_routing",
+	},
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

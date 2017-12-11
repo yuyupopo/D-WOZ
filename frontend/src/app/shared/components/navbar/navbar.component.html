@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-default navbar-light bg-faded">
+    <div class="container-fluid">
+        <span class="navbar-brand">
+            <i class="fa fa-list fa-fw"></i>
+            D-WOZ
+        </span>
+        <button class="navbar-toggler" (click)="collapse=!collapse" type="button" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse" (click)="collapse=true" [hidden]="collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" (click)="gotoAgent()">Agents </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="gotoExperiment()">Experiments </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="gotoTesters()">Test </a>
+                </li>
+            </ul>
+            <div id="logout"  *ngIf="isLoggedIn | async">
+                <button id="logout-button" class="btn btn-outline-info my-2" (click)="signout()">
+                    <i class="fa fa-sign-out fa-fw"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+

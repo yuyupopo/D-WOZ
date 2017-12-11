@@ -1,0 +1,16 @@
+<h2>{{experiment.name}}</h2>
+<h4>{{experiment.instruction}}</h4>
+<h4>{{experiment.scenario}}</h4>
+<div class="list-group-item">
+    agents:
+    <ng-container *ngFor="let agent of agents">
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+                <h4 class="card-title">{{agent.name}}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">your agent</h6>
+                <p class="card-text">{{agent.explanation}}</p>
+                <a [routerLink]="['/agents', agent.id, 'edit']" class="card-link">Edit Agent</a>
+            </div>
+        </div>
+    </ng-container>
+</div>

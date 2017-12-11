@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-sm-12 col-md-3 bg-light sidebar">
+      <button type="button" class="btn btn-success" (click)="createAgent()">create</button>
+      <ol class="nav nav-pills flex-column">
+        <ng-container *ngFor="let agent of agentList$ | async">
+          <li (click)="selectAgent(agent)" class="list-group-item" [class.active] = "isSelected(agent)">
+            <p>Agent name : {{agent.name}}</p>
+            <p>Agent explanation: {{agent.explanation}}</p>
+          </li>
+        </ng-container>
+      </ol>
+    </nav>
+
+    <ng-container *ngIf="selectedAgent">
+      <div class="col-sm-12 col-md-9">
+        <button type="button" class="btn btn-info" (click)="editAgent(selectedAgent)">Edit</button>
+        <app-agent-detail [agent]="selectedAgent"></app-agent-detail>
+      </div>
+    </ng-container>
+  </div>
+</div>

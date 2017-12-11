@@ -1,0 +1,41 @@
+<p>Agent explanation: {{agent.explanation}}</p>
+
+<accordion>
+    <ng-container *ngFor="let trigger of this.triggers">
+        <accordion-group #group class="trigger">
+            <div accordion-heading class="row">
+                {{trigger.trigger}}
+            </div>
+            <div *ngIf="trigger.dialog" class="tree">
+                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: getDialog(trigger.dialog) }"></ng-container>
+            </div>
+        </accordion-group>
+    </ng-container>
+</accordion>
+
+<ng-template #Dialog let-dialog>
+    <ng-container *ngIf="dialog">
+        <ul><li>
+            <a>{{dialog.action}}</a>
+            <ul>
+                <ng-container *ngFor="let behavior of dialog.behavior">
+                    <ng-container *ngTemplateOutlet="Behavior; context: { $implicit: getBehavior(behavior) }"></ng-container>
+                </ng-container>
+            </ul>
+        </li></ul>
+    </ng-container>
+</ng-template>
+
+<ng-template #Behavior let-behavior>
+    <ng-container *ngIf="behavior">
+        <li>
+            <a class="behavior">
+                <!-- only change here-->
+                {{behavior.behavior}}
+            </a>
+            <ul>
+                <ng-container *ngTemplateOutlet="Dialog; context: { $implicit: getDialog(behavior.next_dialog) }"></ng-container>
+            </ul>
+        </li>
+    </ng-container>
+</ng-template>
